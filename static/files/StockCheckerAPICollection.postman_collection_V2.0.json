@@ -1,0 +1,1179 @@
+{
+  "info": {
+    "_postman_id": "545425d3-f56f-4e25-9aa3-5bbcbd5edd05",
+    "name": "StockCheckerAPICollection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53845635",
+    "_collection_link": "https://go.postman.co/collection/53845635-545425d3-f56f-4e25-9aa3-5bbcbd5edd05?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GroceryAPI",
+      "item": [
+        {
+          "name": "getGroceryListByCompany",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{UserName}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-mock-response-name",
+                "value": "sucessResponse"
+              }
+            ],
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/grocery-list",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "grocery-list"
+              ],
+              "query": [
+                {
+                  "key": "recordLimit",
+                  "value": "20",
+                  "description": "This describes the number of records to be displayed",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "filterBy",
+                  "value": "fruits",
+                  "description": "This describes the category of items",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "sucessResponse",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-mock-response-name",
+                    "value": "successResponse",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/grocery-list",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "grocery-list"
+                  ],
+                  "query": [
+                    {
+                      "key": "recordLimit",
+                      "value": "20",
+                      "description": "This describes the number of records to be displayed",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "filterBy",
+                      "value": "fruits",
+                      "description": "This describes the category of items",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"message\": \"Grocery list retrieved successfully.\",\n  \"itemsList\": [\n    {\n      \"item\": {\n        \"itemId\": \"SKU-1001\",\n        \"itemName\": \"Organic Whole Milk\",\n        \"itemCategory\": \"DiaryProducts\",\n        \"companyName\": \"DairyFresh Ltd\",\n        \"companyId\": \"COMP-882\",\n        \"perishable\": \"Y\",\n        \"shelfLifeInDays\": 7,\n        \"totalItemCount\": 100,\n        \"currentStockCount\": 15,\n        \"restockAlert\": true,\n        \"fastSelling\": \"Y\",\n        \"sellerName\": \"Global Dairy Distributors\",\n        \"sellerContactNumber\": \"+91-9876543210\",\n        \"lastRestockedDate\": \"2026-04-25\",\n        \"expectedRestockDate\": \"2026-05-04\",\n        \"itemPackedDt\": \"2026-04-24\",\n        \"itemExpiryDate\": \"2026-05-01\"\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "post-companies-companyId-grocery-list",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{UserName}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "post-companies-companyId-grocery-list"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"itemId\": \"SKU-1001\",\r\n    \"itemName\": \"Organic Whole Milk\",\r\n    \"itemCategory\": \"DiaryProducts\",\r\n    \"companyName\": \"DairyFresh Ltd\",\r\n    \"companyId\": \"COMP-882\",\r\n    \"perishable\": \"Y\",\r\n    \"shelfLifeInDays\": 7,\r\n    \"totalItemCount\": 100,\r\n    \"currentStockCount\": 15,\r\n    \"restockAlert\": true,\r\n    \"fastSelling\": \"Y\",\r\n    \"sellerName\": \"Global Dairy Distributors\",\r\n    \"sellerContactNumber\": \"+91-9876543210\",\r\n    \"lastRestockedDate\": \"2026-04-25\",\r\n    \"expectedRestockDate\": \"2026-05-04\",\r\n    \"itemPackedDt\": \"2026-04-24\",\r\n    \"itemExpiryDate\": \"2026-05-01\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/grocery-list",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "grocery-list"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "post-companies-companyId-grocery-list",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "x-mock-response-name",
+                    "value": "addGroceryresponse"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"itemId\": \"SKU-1001\",\r\n    \"itemName\": \"Organic Whole Milk\",\r\n    \"itemCategory\": \"DiaryProducts\",\r\n    \"companyName\": \"DairyFresh Ltd\",\r\n    \"companyId\": \"COMP-882\",\r\n    \"perishable\": \"Y\",\r\n    \"shelfLifeInDays\": 7,\r\n    \"totalItemCount\": 100,\r\n    \"currentStockCount\": 15,\r\n    \"restockAlert\": true,\r\n    \"fastSelling\": \"Y\",\r\n    \"sellerName\": \"Global Dairy Distributors\",\r\n    \"sellerContactNumber\": \"+91-9876543210\",\r\n    \"lastRestockedDate\": \"2026-04-25\",\r\n    \"expectedRestockDate\": \"2026-05-04\",\r\n    \"itemPackedDt\": \"2026-04-24\",\r\n    \"itemExpiryDate\": \"2026-05-01\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/grocery-list",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "grocery-list"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"New item added to stock successfully\",\r\n  \"data\": {\r\n    \"itemNo\": \"SKU-1001\",\r\n    \"createdAt\": \"2026-05-02T14:30:00Z\"\r\n  }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "get-companies-companyId-grocery-list-itemId",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{UserName}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "get-companies-companyId-grocery-list-itemId",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/grocery-list/SKU-1001",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "grocery-list",
+                "SKU-1001"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get-companies-companyId-grocery-list-itemId",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/grocery-list/SKU-1001",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "grocery-list",
+                    "SKU-1001"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Item details are retrieved successfully\",\r\n  \"item\": {\r\n    \"itemId\": \"SKU-1001\",\r\n    \"itemName\": \"Organic Whole Milk\",\r\n    \"itemCategory\": \"DiaryProducts\",\r\n    \"companyName\": \"DairyFresh Ltd\",\r\n    \"companyId\": \"COMP-882\",\r\n    \"perishable\": \"Y\",\r\n    \"shelfLifeInDays\": 7,\r\n    \"totalItemCount\": 100,\r\n    \"currentStockCount\": 15,\r\n    \"restockAlert\": true,\r\n    \"fastSelling\": \"Y\",\r\n    \"sellerName\": \"Global Dairy Distributors\",\r\n    \"sellerContactNumber\": \"+91-9876543210\",\r\n    \"lastRestockedDate\": \"2026-04-25\",\r\n    \"expectedRestockDate\": \"2026-05-04\",\r\n    \"itemPackedDt\": \"2026-04-24\",\r\n    \"itemExpiryDate\": \"2026-05-01\"\r\n  }\r\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Supplier",
+      "item": [
+        {
+          "name": "get-companies-companyId-supplier-list",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{UserName}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{Password}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplier-list",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "supplier-list"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get-companies-companyId-supplier-list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplier-list",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "supplier-list"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"status\": \"Success\",\r\n  \"message\": \"Supplier details are retrieved successfully\",\r\n  \"suppliersList\": [\r\n    {\r\n      \"supplier\": {\r\n        \"supplierId\": \"SUP-5001\",\r\n        \"supplierName\": \"FreshLine Wholesale\",\r\n        \"itemsList\": [\r\n      {\r\n        \"itemId\": \"SKU-1001\"\r\n      },\r\n      {\r\n        \"itemId\": \"SKU-1002\"\r\n      },\r\n      {\r\n        \"itemId\": \"SKU-2045\"\r\n      }\r\n    ],\r\n        \"companyName\": \"DairyFresh Ltd\",\r\n        \"contactNumber\": \"+91-9840012345\",\r\n        \"alternateContactNumber\": \"+91-44-24509988\",\r\n        \"emailId\": \"orders@freshline.in\",\r\n        \"agreementDetails\": {\r\n          \"advanceAmountPaid\": 25000,\r\n          \"lastPaymentDate\": \"2026-04-10\",\r\n          \"nextPaymentDate\": \"2026-05-10\",\r\n          \"lastPaidAmount\": 12500.5,\r\n          \"expectedPayAmount\": 15000\r\n        },\r\n        \"deliverySchedule\": {\r\n          \"lastRestockedDate\": \"2026-04-28\",\r\n          \"expectedRestockDate\": \"2026-05-05\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"supplier\": {\r\n        \"supplierId\": \"SUP-7022\",\r\n        \"supplierName\": \"Global Grains & Co\",\r\n        \"itemsList\": [\r\n      {\r\n        \"itemId\": \"SKU-1001\"\r\n      },\r\n      {\r\n        \"itemId\": \"SKU-1002\"\r\n      },\r\n      {\r\n        \"itemId\": \"SKU-2045\"\r\n      }\r\n    ],\r\n        \"companyName\": \"GrainMasters\",\r\n        \"contactNumber\": \"+91-9884455667\",\r\n        \"alternateContactNumber\": \"044-234567\",\r\n        \"emailId\": \"logistics@globalgrains.com\",\r\n        \"agreementDetails\": {\r\n          \"advanceAmountPaid\": 50000,\r\n          \"lastPaymentDate\": \"2026-03-01\",\r\n          \"nextPaymentDate\": \"2026-06-01\",\r\n          \"lastPaidAmount\": 45000,\r\n          \"expectedPayAmount\": 45000\r\n        },\r\n        \"deliverySchedule\": {\r\n          \"lastRestockedDate\": \"2026-03-15\",\r\n          \"expectedRestockDate\": \"2026-06-15\"\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "post-companies-companyId-supplier-list",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "post-companies-companyId-supplier-list",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"supplierId\": \"SUP-7022\",\r\n    \"supplierName\": \"Global Grains & Co\",\r\n    \"itemId\": \"SKU-2045\",\r\n    \"companyName\": \"GrainMasters\",\r\n    \"contactNumber\": \"+91-9884455667\",\r\n    \"alternateContactNumber\": null,\r\n    \"emailId\": \"logistics@globalgrains.com\",\r\n    \"agreementDetails\": {\r\n        \"advanceAmountPaid\": 50000,\r\n        \"lastPaymentDate\": \"2026-03-01\",\r\n        \"nextPaymentDate\": \"2026-06-01\",\r\n        \"lastPaidAmount\": 45000,\r\n        \"expectedPayAmount\": 45000\r\n    },\r\n    \"deliverySchedule\": {\r\n        \"lastRestockedDate\": \"2026-03-15\",\r\n        \"expectedRestockDate\": \"2026-06-15\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplier-list",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "supplier-list"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "post-companies-companyId-supplier-list",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"supplierId\": \"SUP-7022\",\r\n    \"supplierName\": \"Global Grains & Co\",\r\n    \"itemId\": \"SKU-2045\",\r\n    \"companyName\": \"GrainMasters\",\r\n    \"contactNumber\": \"+91-9884455667\",\r\n    \"alternateContactNumber\": null,\r\n    \"emailId\": \"logistics@globalgrains.com\",\r\n    \"agreementDetails\": {\r\n        \"advanceAmountPaid\": 50000,\r\n        \"lastPaymentDate\": \"2026-03-01\",\r\n        \"nextPaymentDate\": \"2026-06-01\",\r\n        \"lastPaidAmount\": 45000,\r\n        \"expectedPayAmount\": 45000\r\n    },\r\n    \"deliverySchedule\": {\r\n        \"lastRestockedDate\": \"2026-03-15\",\r\n        \"expectedRestockDate\": \"2026-06-15\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplier-list",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "supplier-list"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [],
+              "body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"New supplier added to supplier list successfully\",\r\n  \"data\": {\r\n    \"supplierId\": \"SUP-7022\",\r\n    \"itemsList\": [\r\n      {\r\n        \"itemId\": \"SKU-1001\"\r\n      },\r\n      {\r\n        \"itemId\": \"SKU-1002\"\r\n      },\r\n      {\r\n        \"itemId\": \"SKU-2045\"\r\n      }\r\n    ],\r\n    \"createdAt\": \"2026-05-02T14:30:00Z\"\r\n  }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "get-companies-companyId-supplier-list-supplierId",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "get-companies-companyId-supplier-list-supplierId",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplier-list/SUP-7022",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "supplier-list",
+                "SUP-7022"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get-companies-companyId-supplier-list-supplierId",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplier-list/SUP-7022",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "supplier-list",
+                    "SUP-7022"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"supplierId\": \"SUP-7022\",\r\n  \"supplierName\": \"Global Grains & Co\",\r\n  \"itemsList\": [\r\n    {\r\n      \"itemId\": \"SKU-1001\"\r\n    },\r\n    {\r\n      \"itemId\": \"SKU-1002\"\r\n    },\r\n    {\r\n      \"itemId\": \"SKU-2045\"\r\n    }\r\n  ],\r\n  \"companyName\": \"GrainMasters\",\r\n  \"contactNumber\": \"+91-9884455667\",\r\n  \"alternateContactNumber\": null,\r\n  \"emailId\": \"logistics@globalgrains.com\",\r\n  \"agreementDetails\": {\r\n    \"advanceAmountPaid\": 50000,\r\n    \"lastPaymentDate\": \"2026-03-01\",\r\n    \"nextPaymentDate\": \"2026-06-01\",\r\n    \"lastPaidAmount\": 45000,\r\n    \"expectedPayAmount\": 45000\r\n  },\r\n  \"deliverySchedule\": {\r\n    \"lastRestockedDate\": \"2026-03-15\",\r\n    \"expectedRestockDate\": \"2026-06-15\"\r\n  }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "get-companies-companyId-supplier-list-itemId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplierlist-item/SKU-1001",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "supplierlist-item",
+                "SKU-1001"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get-companies-companyId-supplier-list-itemId",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplierlist-item/SKU-1001",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "supplierlist-item",
+                    "SKU-1001"
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"suppliersList\": [\r\n    {\r\n      \"supplier\": {\r\n        \"supplierId\": \"SUP-5001\",\r\n        \"supplierName\": \"FreshLine Wholesale\",\r\n        \"itemsList\": [\r\n          {\r\n            \"itemId\": \"SKU-1001\"\r\n          },\r\n          {\r\n            \"itemId\": \"SKU-1002\"\r\n          },\r\n          {\r\n            \"itemId\": \"SKU-2045\"\r\n          }\r\n        ],\r\n        \"companyName\": \"DairyFresh Ltd\",\r\n        \"contactNumber\": \"+91-9840012345\",\r\n        \"alternateContactNumber\": \"+91-44-24509988\",\r\n        \"emailId\": \"orders@freshline.in\",\r\n        \"agreementDetails\": {\r\n          \"advanceAmountPaid\": 25000,\r\n          \"lastPaymentDate\": \"2026-04-10\",\r\n          \"nextPaymentDate\": \"2026-05-10\",\r\n          \"lastPaidAmount\": 12500.5,\r\n          \"expectedPayAmount\": 15000\r\n        },\r\n        \"deliverySchedule\": {\r\n          \"lastRestockedDate\": \"2026-04-28\",\r\n          \"expectedRestockDate\": \"2026-05-05\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"supplier\": {\r\n        \"supplierId\": \"SUP-5002\",\r\n        \"supplierName\": \"AtoZ Wholesale\",\r\n        \"itemsList\": [\r\n          {\r\n            \"itemId\": \"SKU-1001\"\r\n          },\r\n          {\r\n            \"itemId\": \"SKU-1002\"\r\n          },\r\n          {\r\n            \"itemId\": \"SKU-2045\"\r\n          }\r\n        ],\r\n        \"companyName\": \"AllFresh Ltd\",\r\n        \"contactNumber\": \"+91-9840015345\",\r\n        \"alternateContactNumber\": \"+91-44-24519988\",\r\n        \"emailId\": \"orders@allfresh.in\",\r\n        \"agreementDetails\": {\r\n          \"advanceAmountPaid\": 22000,\r\n          \"lastPaymentDate\": \"2026-04-11\",\r\n          \"nextPaymentDate\": \"2026-05-11\",\r\n          \"lastPaidAmount\": 13500.5,\r\n          \"expectedPayAmount\": 14000\r\n        },\r\n        \"deliverySchedule\": {\r\n          \"lastRestockedDate\": \"2026-04-28\",\r\n          \"expectedRestockDate\": \"2026-05-05\"\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "item": [
+        {
+          "name": "get-companyId-newSupplyOrderStatus",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "get-companyId-newSupplyOrderStatus",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/newSupplyOrderStatus?fromDate=01-05-2026&toDate=07-05-2026",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "newSupplyOrderStatus"
+              ],
+              "query": [
+                {
+                  "key": "fromDate",
+                  "value": "01-05-2026",
+                  "description": "This is the \"from \" date from which the supply ordrs places will be fetched and displayed",
+                  "type": "text"
+                },
+                {
+                  "key": "toDate",
+                  "value": "07-05-2026",
+                  "description": "This is the \"to \" date till which the supply ordrs places will be fetched and displayed",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get-companyId-newSupplyOrderStatus",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/newSupplyOrderStatus",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "newSupplyOrderStatus"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Orders retrieved successfully for the requested period.\",\r\n  \"data\": {\r\n    \"totalOrders\": 2,\r\n    \"fromDate\": \"2026-05-01\",\r\n    \"toDate\": \"2026-05-07\",\r\n    \"orders\": [\r\n      {\r\n        \"orderId\": \"ORD-2026-05-001\",\r\n        \"additionalInfo\": \"Delivered partially to warehouse gate 2\",\r\n        \"itemsList\": [\r\n          {\r\n            \"itemId\": \"SKU-1001\",\r\n            \"itemName\": \"Organic Whole Milk\",\r\n            \"itemCount\": 10,\r\n            \"isStockReceived\": false,\r\n            \"stockReceivedDate\": null\r\n          },\r\n          {\r\n            \"itemId\": \"SKU-1002\",\r\n            \"itemName\": \"Salted Butter 500g\",\r\n            \"itemCount\": 10,\r\n            \"isStockReceived\": true,\r\n            \"stockReceivedDate\": \"2026-05-01\"\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"orderId\": \"ORD-2026-05-005\",\r\n        \"additionalInfo\": \"Delayed due to transport strike\",\r\n        \"itemsList\": [\r\n          {\r\n            \"itemId\": \"SKU-2045\",\r\n            \"itemName\": \"Basmati Rice 5kg\",\r\n            \"itemCount\": 10,\r\n            \"isStockReceived\": false,\r\n            \"stockReceivedDate\": null\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "post-companyId-newSupplyOrder-list",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "get-companyId-newSupplyOrderStatus",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"orderId\": \"ORD-2026-001\",\r\n    \"orderName\": \"Monthly Grocery Restock - May\",\r\n    \"supplierId\": \"SUP-7022\",\r\n    \"supplierCompanyName\": \"Global Grains & Co\",\r\n    \"supplierName\": \"Rajesh Kumar\",\r\n    \"supplierContact\": \"+91-9884455667\",\r\n    \"expectedDeliveryDate\": \"2026-05-15\",\r\n    \"stockDetails\": [\r\n        {\r\n            \"itemName\": \"Organic Whole Milk\",\r\n            \"itemId\": \"SKU-1001\",\r\n            \"itemCount\": 50,\r\n            \"itemDescription\": \"1-Liter tetra packs, homogenized\"\r\n        },\r\n        {\r\n            \"itemName\": \"Basmati Rice 5kg\",\r\n            \"itemId\": \"SKU-2045\",\r\n            \"itemCount\": 20,\r\n            \"itemDescription\": \"Premium long-grain, aged 12 months\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/newSupplyOrder-list",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "newSupplyOrder-list"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "post-companyId-newSupplyOrder-list",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-mock-response-name",
+                    "value": "get-companyId-newSupplyOrderStatus",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"orderId\": \"ORD-2026-001\",\r\n    \"orderName\": \"Monthly Grocery Restock - May\",\r\n    \"supplierId\": \"SUP-7022\",\r\n    \"supplierCompanyName\": \"Global Grains & Co\",\r\n    \"supplierName\": \"Rajesh Kumar\",\r\n    \"supplierContact\": \"+91-9884455667\",\r\n    \"expectedDeliveryDate\": \"2026-05-15\",\r\n    \"stockDetails\": [\r\n        {\r\n            \"itemName\": \"Organic Whole Milk\",\r\n            \"itemId\": \"SKU-1001\",\r\n            \"itemCount\": 50,\r\n            \"itemDescription\": \"1-Liter tetra packs, homogenized\"\r\n        },\r\n        {\r\n            \"itemName\": \"Basmati Rice 5kg\",\r\n            \"itemId\": \"SKU-2045\",\r\n            \"itemCount\": 20,\r\n            \"itemDescription\": \"Premium long-grain, aged 12 months\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/newSupplyOrder-list",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "newSupplyOrder-list"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Supply order created and notifications dispatched.\",\r\n  \"data\": {\r\n    \"orderId\": \"ORD-2026-001\",\r\n    \"notificationStatus\": {\r\n      \"isSmsSuccess\": true,\r\n      \"isEmailSuccess\": true,\r\n      \"failureReason\": null\r\n    }\r\n  }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "patch-companyId-newSupplyOrderStatus",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "patch-companyId-newSupplyOrderStatus",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"orders\": [\r\n        {\r\n            \"orderId\": \"ORD-2026-05-001\",\r\n            \"additionalInfo\": \"Delivered to warehouse gate 2\",\r\n            \"itemsList\": [\r\n                {\r\n                    \"itemId\": \"SKU-1001\",\r\n                    \"itemName\": \"Organic Whole Milk\",\r\n                    \"itemCount\": 10,\r\n                    \"isStockReceived\": true,\r\n                    \"stockReceivedDate\": \"2026-05-05\"\r\n                },\r\n                {\r\n                    \"itemId\": \"SKU-1002\",\r\n                    \"itemName\": \"Salted Butter 500g\",\r\n                    \"itemCount\": 10,\r\n                    \"isStockReceived\": true,\r\n                    \"stockReceivedDate\": \"2026-05-05\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"orderId\": \"ORD-2026-05-005\",\r\n            \"additionalInfo\": \"Delayed due to transport strike\",\r\n            \"itemsList\": [\r\n                {\r\n                    \"itemId\": \"SKU-2045\",\r\n                    \"itemName\": \"Basmati Rice 5kg\",\r\n                    \"itemCount\": 10,\r\n                    \"isStockReceived\": true,\r\n                    \"stockReceivedDate\": \"2026-05-04\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/newSupplyOrderStatus",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "newSupplyOrderStatus"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "patch-companyId-newSupplyOrderStatus",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "x-mock-response-name",
+                    "value": "patch-companyId-newSupplyOrderStatus",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"orders\": [\r\n        {\r\n            \"orderId\": \"ORD-2026-05-001\",\r\n            \"additionalInfo\": \"Delivered to warehouse gate 2\",\r\n            \"itemsList\": [\r\n                {\r\n                    \"itemId\": \"SKU-1001\",\r\n                    \"itemName\": \"Organic Whole Milk\",\r\n                    \"itemCount\": 10,\r\n                    \"isStockReceived\": true,\r\n                    \"stockReceivedDate\": \"2026-05-05\"\r\n                },\r\n                {\r\n                    \"itemId\": \"SKU-1002\",\r\n                    \"itemName\": \"Salted Butter 500g\",\r\n                    \"itemCount\": 10,\r\n                    \"isStockReceived\": true,\r\n                    \"stockReceivedDate\": \"2026-05-05\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"orderId\": \"ORD-2026-05-005\",\r\n            \"additionalInfo\": \"Delayed due to transport strike\",\r\n            \"itemsList\": [\r\n                {\r\n                    \"itemId\": \"SKU-2045\",\r\n                    \"itemName\": \"Basmati Rice 5kg\",\r\n                    \"itemCount\": 10,\r\n                    \"isStockReceived\": true,\r\n                    \"stockReceivedDate\": \"2026-05-04\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/newSupplyOrderStatus",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "newSupplyOrderStatus"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Stock received dates updated successfully for the requested items.\",\r\n  \"data\": {\r\n    \"orderIdList\": [\r\n      {\r\n        \"orderId\": \"ORD-2026-05-001\",\r\n        \"itemIdList\": [\r\n          {\r\n            \"itemId\": \"SKU-1001\",\r\n            \"status\": \"Updated\"\r\n          },\r\n          {\r\n            \"itemId\": \"SKU-1002\",\r\n            \"status\": \"Updated\"\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"orderId\": \"ORD-2026-05-005\",\r\n        \"itemIdList\": [\r\n          {\r\n            \"itemId\": \"SKU-2045\",\r\n            \"status\": \"Updated\"\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  }\r\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "get-companyId-supplierPaymentDetails",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "get-companyId-supplierPaymentDetails",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplierPaymentDetails",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "supplierPaymentDetails"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get-companyId-supplierPaymentDetails",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Payment list retrieved successfully.\",\r\n  \"data\": {\r\n    \"totalRecords\": 1,\r\n    \"paymentList\": [\r\n      {\r\n        \"paymentId\": \"PAY-99810\",\r\n        \"orderId\": \"ORD-2026-05-102\",\r\n        \"orderName\": \"Bulk Grain Purchase - Q2\",\r\n        \"supplierId\": \"SUP-7022\",\r\n        \"supplierCompanyName\": \"Global Grains & Co\",\r\n        \"supplierName\": \"Rajesh Kumar\",\r\n        \"supplierContact\": \"+91-9884455667\",\r\n        \"paymentSummary\": {\r\n          \"totalAmountToBePaid\": 50000,\r\n          \"advanceAmount\": 25000,\r\n          \"isPaymentSuccess\": false,\r\n          \"paymentDate\": null\r\n        },\r\n        \"stockDetails\": [\r\n          {\r\n            \"itemId\": \"SKU-2045\",\r\n            \"itemName\": \"Basmati Rice 5kg\",\r\n            \"itemCount\": 100,\r\n            \"paymentAmount\": 35000,\r\n            \"isStockSent\": true\r\n          },\r\n          {\r\n            \"itemId\": \"SKU-2048\",\r\n            \"itemName\": \"Sona Masuri 5kg\",\r\n            \"itemCount\": 50,\r\n            \"paymentAmount\": 15000,\r\n            \"isStockSent\": false\r\n          }\r\n        ]\r\n      }\r\n    ]\r\n  }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "post-companyId-supplierPaymentDetails",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "post-companyId-supplierPaymentDetails",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"paymentId\": \"PAY-99810\",\r\n  \"orderId\": \"ORD-2026-05-102\",\r\n  \"orderName\": \"Bulk Grain Purchase - Q2\",\r\n  \"supplierId\": \"SUP-7022\",\r\n  \"supplierCompanyName\": \"Global Grains & Co\",\r\n  \"supplierName\": \"Rajesh Kumar\",\r\n  \"supplierContact\": \"+91-9884455667\",\r\n  \"paymentSummary\": {\r\n    \"totalAmountToBePaid\": 50000,\r\n    \"advanceAmount\": 25000,\r\n    \"isPaymentSuccess\": false,\r\n    \"paymentDate\": null\r\n  },\r\n  \"stockDetails\": [\r\n    {\r\n      \"itemId\": \"SKU-2045\",\r\n      \"itemName\": \"Basmati Rice 5kg\",\r\n      \"itemCount\": 100,\r\n      \"paymentAmount\": 35000,\r\n      \"isStockSent\": true\r\n    },\r\n    {\r\n      \"itemId\": \"SKU-2048\",\r\n      \"itemName\": \"Sona Masuri 5kg\",\r\n      \"itemCount\": 50,\r\n      \"paymentAmount\": 15000,\r\n      \"isStockSent\": false\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplierPaymentDetails",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "supplierPaymentDetails"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "post-companyId-supplierPaymentDetails",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-mock-response-name",
+                    "value": "get-companyId-supplierPaymentDetails",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"paymentId\": \"PAY-99810\",\r\n  \"orderId\": \"ORD-2026-05-102\",\r\n  \"orderName\": \"Bulk Grain Purchase - Q2\",\r\n  \"supplierId\": \"SUP-7022\",\r\n  \"supplierCompanyName\": \"Global Grains & Co\",\r\n  \"supplierName\": \"Rajesh Kumar\",\r\n  \"supplierContact\": \"+91-9884455667\",\r\n  \"paymentSummary\": {\r\n    \"totalAmountToBePaid\": 50000,\r\n    \"advanceAmount\": 25000,\r\n    \"isPaymentSuccess\": true,\r\n    \"paymentDate\": \"2026-05-05\"\r\n  },\r\n  \"stockDetails\": [\r\n    {\r\n      \"itemId\": \"SKU-2045\",\r\n      \"itemName\": \"Basmati Rice 5kg\",\r\n      \"itemCount\": 100,\r\n      \"paymentAmount\": 35000,\r\n      \"isStockSent\": true\r\n    },\r\n    {\r\n      \"itemId\": \"SKU-2048\",\r\n      \"itemName\": \"Sona Masuri 5kg\",\r\n      \"itemCount\": 50,\r\n      \"paymentAmount\": 15000,\r\n      \"isStockSent\": false\r\n    }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplierPaymentDetails",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "supplierPaymentDetails"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": " {\r\n  \"status\": \"success\",\r\n  \"message\": \"Payment record created successfully\",\r\n  \"data\": {\r\n    \"paymentId\": \"PAY-99810\",\r\n    \"updatedAt\": \"2026-05-05T22:58:21Z\",\r\n    \"transactionType\": \"SUPPLIER_PAYMENT\"\r\n  }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "patch-companyId-supplierPaymentDetails",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-mock-response-name",
+                "value": "patch-companyId-supplierPaymentDetails",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"paymentId\": \"PAY-99810\",\r\n  \"orderId\": \"ORD-2026-05-102\",\r\n  \"orderName\": \"Bulk Grain Purchase - Q2\",\r\n  \"supplierId\": \"SUP-7022\",\r\n  \"supplierCompanyName\": \"Global Grains & Co\",\r\n  \"supplierName\": \"Rajesh Kumar\",\r\n  \"supplierContact\": \"+91-9884455667\",\r\n  \"paymentSummary\": {\r\n    \"totalAmountToBePaid\": 50000,\r\n    \"advanceAmount\": 25000,\r\n    \"isPaymentSuccess\": true,\r\n    \"paymentDate\": \"2026-05-05\"\r\n  },\r\n  \"stockDetails\": [\r\n    {\r\n      \"itemId\": \"SKU-2045\",\r\n      \"itemName\": \"Basmati Rice 5kg\",\r\n      \"itemCount\": 100,\r\n      \"paymentAmount\": 35000,\r\n      \"isStockSent\": true\r\n    },\r\n    {\r\n      \"itemId\": \"SKU-2048\",\r\n      \"itemName\": \"Sona Masuri 5kg\",\r\n      \"itemCount\": 50,\r\n      \"paymentAmount\": 15000,\r\n      \"isStockSent\": true\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplierPaymentDetails",
+              "protocol": "https",
+              "host": [
+                "{{stockchecker.mockserver}}"
+              ],
+              "path": [
+                "stockChecker",
+                "companies",
+                "abcComp",
+                "supplierPaymentDetails"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "patch-companyId-supplierPaymentDetails",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "x-mock-response-name",
+                    "value": "post-companyId-supplierPaymentDetails",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"paymentId\": \"PAY-99810\",\r\n  \"orderId\": \"ORD-2026-05-102\",\r\n  \"orderName\": \"Bulk Grain Purchase - Q2\",\r\n  \"supplierId\": \"SUP-7022\",\r\n  \"supplierCompanyName\": \"Global Grains & Co\",\r\n  \"supplierName\": \"Rajesh Kumar\",\r\n  \"supplierContact\": \"+91-9884455667\",\r\n  \"paymentSummary\": {\r\n    \"totalAmountToBePaid\": 50000,\r\n    \"advanceAmount\": 25000,\r\n    \"isPaymentSuccess\": true,\r\n    \"paymentDate\": \"2026-05-05\"\r\n  },\r\n  \"stockDetails\": [\r\n    {\r\n      \"itemId\": \"SKU-2045\",\r\n      \"itemName\": \"Basmati Rice 5kg\",\r\n      \"itemCount\": 100,\r\n      \"paymentAmount\": 35000,\r\n      \"isStockSent\": true\r\n    },\r\n    {\r\n      \"itemId\": \"SKU-2048\",\r\n      \"itemName\": \"Sona Masuri 5kg\",\r\n      \"itemCount\": 50,\r\n      \"paymentAmount\": 15000,\r\n      \"isStockSent\": true\r\n    }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://{{stockchecker.mockserver}}/stockChecker/companies/abcComp/supplierPaymentDetails",
+                  "protocol": "https",
+                  "host": [
+                    "{{stockchecker.mockserver}}"
+                  ],
+                  "path": [
+                    "stockChecker",
+                    "companies",
+                    "abcComp",
+                    "supplierPaymentDetails"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Payment record processed successfully\",\r\n  \"data\": {\r\n    \"paymentId\": \"PAY-99810\",\r\n    \"updatedAt\": \"2026-05-05T22:58:21Z\",\r\n    \"transactionType\": \"SUPPLIER_PAYMENT\"\r\n  }\r\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "password",
+        "value": "{{Password}}",
+        "type": "string"
+      },
+      {
+        "key": "username",
+        "value": "{{UserName}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "stockchecker.mockserver",
+      "value": ""
+    },
+    {
+      "value": ""
+    }
+  ]
+}
