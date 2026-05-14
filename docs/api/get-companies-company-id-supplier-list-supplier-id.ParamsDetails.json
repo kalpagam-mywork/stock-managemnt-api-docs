@@ -1,0 +1,1 @@
+{"parameters":[{"schema":{"type":"string"},"name":"companyId","in":"path","required":true,"description":"This describes the company id i.e grocery store id."},{"schema":{"type":"string"},"name":"supplierId","in":"path","required":true,"description":"This describes the supplier id i.e the supplier company associated with grocery store."}]}

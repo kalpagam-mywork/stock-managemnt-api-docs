@@ -1,0 +1,1 @@
+{"parameters":[{"schema":{"type":"string"},"name":"companyId","in":"path","required":true,"description":"Company id is the unique identifier of the company"},{"schema":{"type":"string"},"name":"itemId","in":"path","required":true,"description":"Item id is the unique identifier of the item sold by the company."}]}

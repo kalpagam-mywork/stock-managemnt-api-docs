@@ -1,0 +1,69 @@
+---
+id: patch-companies-company-id-supplier-payment-details
+title: "patch-companyId-supplierPaymentDetails"
+description: "This service updates the payment entry for an order once payment is done offline.Key fields that gets updated are payment date and Payment success indicator. This helps in Payment fulfillment tracking and in financial audits."
+sidebar_label: "patch-companyId-supplierPaymentDetails"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "patch api-method"
+info_path: docs/api/stock-management-api-spec
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"patch-companyId-supplierPaymentDetails"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"patch"}
+  path={"/companies/{companyId}/supplierPaymentDetails"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+This service updates the payment entry for an order once payment is done offline.Key fields that gets updated are payment date and Payment success indicator. This helps in Payment fulfillment tracking and in financial audits.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./patch-companies-company-id-supplier-payment-details.ParamsDetails.json")}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./patch-companies-company-id-supplier-payment-details.RequestSchema.json")}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./patch-companies-company-id-supplier-payment-details.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
+      

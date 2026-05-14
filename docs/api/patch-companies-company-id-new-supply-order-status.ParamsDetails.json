@@ -1,0 +1,1 @@
+{"parameters":[{"schema":{"type":"string"},"name":"companyId","in":"path","required":true,"description":"This is the company id, an unique identifier for the grocery store."}]}
