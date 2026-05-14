@@ -35,8 +35,8 @@ The Stock Management system is designed to automate the end-to-end operations of
 3. **Order Management:** Handles the core business logic of procurement, correlating unique orders to specific suppliers and their associated line-items.
 4. **Payment Management:** Manages the financial lifecycle of procurement. It automates the creation of a Payment Entry for every Purchase Order placed and provides a workflow to reconcile these entries once offline payments are finalized.
 
-![Stock Management Architecture](/img/HighLevelArchitecture_StockManagement.svg)
 
+<img src="/img/HighLevelArchitecture_StockManagement.svg" alt="Architecture Diagram" width="791" />
 ---
 
 ## Service Overview
@@ -93,13 +93,15 @@ curl --request GET \
   --header 'Authorization: Basic YOUR_AUTH_TOKEN'
 ```
 
-**Full Endpoint Reference:** Detailed request/response schemas, JSON structures, and error codes are available in the **[Postman Collection]**.
-
-[Postman Collection]: stockCheckerAPICollection.postman_collection_v2.json
+**Full Endpoint Reference:** Detailed request/response schemas, JSON structures, and error codes are available in the **[Postman]**().
 
 ## Additional Documentation
-* **API Design Spec:** TBD - [Link to GitHub/Stoplight]
-* **Postman API Collection:** TBD - [Link to GitHub]
+* **API Design Spec:** [API_Spec]
+* **Postman API Collection:** [Postman]
+
+[API_Spec]: https://raw.githubusercontent.com/kalpagam-mywork/stock-managemnt-api-docs/refs/heads/main/static/files/stockchecker.yaml
+
+[Postman]: https://raw.githubusercontent.com/kalpagam-mywork/stock-managemnt-api-docs/refs/heads/main/static/files/StockCheckerAPICollection.postman_collection_V2.0.json
 
 ## Technology Stack
 - **API Specification:** OpenAPI 3.0 (OAS)

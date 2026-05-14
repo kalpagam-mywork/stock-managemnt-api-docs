@@ -1,98 +1,42 @@
 {
   "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "pwbxihu2iyrdg"
+  },
   "info": {
+    "title": "Stock Management API Spec",
     "version": "1.0",
-    "title": "stockchecker",
-    "summary": "The APIs help in performing stock management in super market.",
-    "description": "The APIs help in checking the current grocery stock of all the super market and help to manage the stock availability and supply management",
-    "termsOfService": "https://stockcheckerapp.com/terms",
-    "contact": {
+    "summary": "A high-performance inventory orchestration engine that digitizes the supermarket supply chain through real-time stock tracking, procurement automation, and financial reconciliation.",
+    "description": "The Stock Management API suite is a robust back-end solution designed for modern supermarkets and grocery retailers. It streamlines daily operations by digitizing the lifecycle of inventory—from supplier onboarding and procurement to order fulfillment and financial reconciliation.",
+     "contact": {
       "name": "support",
-      "url": "https://stockcheckerapp.com",
-      "email": "sample@gmail.com"
+      "url": "https://github.com/kalpagam-mywork",
+      "email": "kalpagamaravinth@gmail.com"
     },
-    "license": {
-      "url": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "name": "Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)"
+     "license": {
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+      "name": "Apache 2.0"
     }
   },
   "servers": [
     {
-      "url": "http://localhost:8085/stockChecker",
-      "description": "dev"
-    },
-    {
-      "url": "https://int.freeapp.store/stockChecker",
-      "description": "int"
-    },
-    {
-      "url": "https://qa.freeapp.store/stockChecker",
-      "description": "qa"
-    },
-    {
-      "url": "https://prod.freeapp.store/stockChecker",
-      "description": "prod"
+      "url": "https://{mockserver}/stockChecker",
+      "description": "dev",
+      "variables": {
+                "mockserver": {
+                    "default": "stockchecker.mockserver.com",
+                    "description": "The hostname of your mock environment."
+                }                
+            }
     }
+    
   ],
   "paths": {
     "/companies/{companyId}/grocery-list": {
       "get": {
+        "summary": "get-companyId-grocery-list",
         "tags": [
           "Grocery Details"
-        ],
-        "summary": "get-companyId-grocery-list",
-        "description": " This service returns all the grocery items of super market/company.",
-        "operationId": "getGroceryListByCompany",
-        "parameters": [
-          {
-            "name": "recordLimit",
-            "in": "query",
-            "description": "How many records should be displayed in a page",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 50,
-              "examples": [
-                30
-              ]
-            }
-          },
-          {
-            "name": "filterBy",
-            "in": "query",
-            "description": "Based on the filter criteria the records will be displayed",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "snacks",
-                "vegetables",
-                "fruits",
-                "beverages",
-                "stationeries",
-                "readymadefood",
-                "cereals",
-                "pulses",
-                "diary",
-                "non-food",
-                "imported"
-              ],
-              "pattern": "^[A-Za-z-_]",
-              "minLength": 1,
-              "maxLength": 20,
-              "examples": [
-                "vegetables"
-              ]
-            }
-          },
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the supermarket uniqueId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -101,42 +45,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "description": "This is the status of the service.",
-                      "examples": [
-                        "success"
-                      ]
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "this is the additional message to the status.",
-                      "examples": [
-                        "Items retrieved successfully"
-                      ]
-                    },
-                    "itemsList": {
-                      "type": "array",
-                      "description": "This is the set of grocery items that are present in the company and the items result might vary based on filter criterias.",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "item": {
-                            "$ref": "#/components/schemas/Item"
-                          }
-                        },
-                        "required": [
-                          "item"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "itemsList"
-                  ],
                   "x-examples": {
                     "Example 1": {
                       "itemsList": [
@@ -181,6 +89,39 @@
                           }
                         }
                       ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "message",
+                    "itemsList"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success",
+                      "description": "This is the status of the service."
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Items retrieved successfully",
+                      "description": "this is the additional message to the status."
+                    },
+                    "itemsList": {
+                      "type": "array",
+                      "description": "This is the set of grocery items that are present in the company and the items result might vary based on filter criterias.",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "item"
+                        ],
+                        "properties": {
+                          "item": {
+                            "$ref": "#/components/schemas/Item",
+                            "description": "This is the details of each item."
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -281,7 +222,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {}
                 },
                 "examples": {
                   "Example 1": {
@@ -349,81 +291,66 @@
             }
           }
         },
-        "security": [
+        "operationId": "getGroceryListByCompany",
+        "x-stoplight": {
+          "id": "c9w3wl5yapnxq"
+        },
+        "description": " Retrieves a comprehensive catalog of grocery inventory associated with a specific company or supermarket branch.",
+        "parameters": [
           {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
+            "schema": {
+              "type": "integer",
+              "example": 30,
+              "maximum": 50,
+              "minimum": 1
+            },
+            "in": "query",
+            "name": "recordLimit",
+            "description": "How many records should be displayed in a page"
           },
           {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
+            "schema": {
+              "type": "string",
+              "enum": [
+                "snacks",
+                "vegetables",
+                "fruits",
+                "beverages",
+                "stationeries",
+                "readymadefood",
+                "cereals",
+                "pulses",
+                "diary",
+                "non-food",
+                "imported"
+              ],
+              "example": "vegetables",
+              "minLength": 1,
+              "maxLength": 20,
+              "pattern": "^[A-Za-z-_]"
+            },
+            "in": "query",
+            "name": "filterBy",
+            "description": "Based on the filter criteria the records will be displayed"
           }
         ]
       },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "description": "This is the supermarket uniqueId"
+        }
+      ],
       "post": {
+        "summary": "post-companyId-grocery-list",
         "tags": [
           "Grocery Details"
         ],
-        "summary": "post-companyId-grocery-list",
-        "description": "This service adds or updates the grocery details of a company.",
-        "operationId": "post-companies-companyId-grocery-list",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the supermarket uniqueId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "This contains all the values of an Item that is sold by the company in the store. This operation saves the item to the company's grocery list.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Item"
-              },
-              "examples": {
-                "Example 1": {
-                  "value": {
-                    "itemId": "SKU-1001",
-                    "itemName": "Organic Whole Milk",
-                    "itemCategory": "DiaryProducts",
-                    "companyName": "DairyFresh Ltd",
-                    "companyId": "COMP-882",
-                    "perishable": "Y",
-                    "shelfLifeInDays": 7,
-                    "totalItemCount": 100,
-                    "currentStockCount": 15,
-                    "restockAlert": true,
-                    "fastSelling": "Y",
-                    "sellerName": "Global Dairy Distributors",
-                    "sellerContactNumber": "+91-9876543210",
-                    "lastRestockedDate": "2026-04-25",
-                    "expectedRestockDate": "2026-05-04",
-                    "itemPackedDt": "2026-04-24",
-                    "itemExpiryDate": "2026-05-01"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "201": {
             "description": "Item is successfully added/updated to the existing grocery list of the company. ",
@@ -431,6 +358,21 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "x-examples": {
+                    "Example 1": {
+                      "status": "success",
+                      "message": "New item added to stock successfully",
+                      "data": {
+                        "itemNo": "SKU-1001",
+                        "createdAt": "2026-05-02T14:30:00Z"
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "string",
@@ -442,6 +384,10 @@
                     },
                     "data": {
                       "type": "object",
+                      "required": [
+                        "itemNo",
+                        "createdAt"
+                      ],
                       "description": "This contains unique information related to the grocery item after successful creation of item.",
                       "properties": {
                         "itemNo": {
@@ -452,25 +398,6 @@
                           "type": "string",
                           "description": "This is the date when the grocery item got added to the grocery list."
                         }
-                      },
-                      "required": [
-                        "itemNo",
-                        "createdAt"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-examples": {
-                    "Example 1": {
-                      "status": "success",
-                      "message": "New item added to stock successfully",
-                      "data": {
-                        "itemNo": "SKU-1001",
-                        "createdAt": "2026-05-02T14:30:00Z"
                       }
                     }
                   }
@@ -622,58 +549,71 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
+        "operationId": "post-companies-companyId-grocery-list",
+        "x-stoplight": {
+          "id": "m4zj6xakqqdi1"
+        },
+        "description": "This service adds or updates the grocery inventory details of a company.",
+        "requestBody": {
+          "description": "This contains all the values of an Item that is sold by the company in the store. This operation saves the item to the company's grocery list.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Item"
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "itemId": "SKU-1001",
+                    "itemName": "Organic Whole Milk",
+                    "itemCategory": "DiaryProducts",
+                    "companyName": "DairyFresh Ltd",
+                    "companyId": "COMP-882",
+                    "perishable": "Y",
+                    "shelfLifeInDays": 7,
+                    "totalItemCount": 100,
+                    "currentStockCount": 15,
+                    "restockAlert": true,
+                    "fastSelling": "Y",
+                    "sellerName": "Global Dairy Distributors",
+                    "sellerContactNumber": "+91-9876543210",
+                    "lastRestockedDate": "2026-04-25",
+                    "expectedRestockDate": "2026-05-04",
+                    "itemPackedDt": "2026-04-24",
+                    "itemExpiryDate": "2026-05-01"
+                  }
+                }
+              }
+            }
           }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        }
       }
     },
     "/companies/{companyId}/grocery-list/{itemId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "description": "Company id is the unique identifier of the company"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "itemId",
+          "in": "path",
+          "required": true,
+          "description": "Item id is the unique identifier of the item sold by the company."
+        }
+      ],
       "get": {
+        "summary": "get-companyId-grocery-list-itemId",
         "tags": [
           "Grocery Details"
-        ],
-        "summary": "get-companyId-grocery-list-itemId",
-        "description": "get the item details from a company's grocery list.",
-        "operationId": "get-companies-companyId-grocery-list-itemId",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "Company id is the unique identifier of the company",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "itemId",
-            "in": "path",
-            "description": "Item id is the unique identifier of the item sold by the company.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -682,25 +622,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "description": "This tells the status of the operation performed."
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "This is any info asscoiated with the status."
-                    },
-                    "item": {
-                      "$ref": "#/components/schemas/Item",
-                      "description": "The item object with all the details of the item available in company's grocery list."
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "item"
-                  ],
                   "x-examples": {
                     "Example 1": {
                       "status": "success",
@@ -723,6 +644,28 @@
                         "itemPackedDt": "2026-04-24",
                         "itemExpiryDate": "2026-05-01"
                       }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "message",
+                    "item"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "This tells the status of the operation performed."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "This is any info asscoiated with the status.",
+                      "x-stoplight": {
+                        "id": "z1dsfaipb6vyb"
+                      }
+                    },
+                    "item": {
+                      "$ref": "#/components/schemas/Item",
+                      "description": "The item object with all the details of the item available in company's grocery list."
                     }
                   }
                 },
@@ -853,49 +796,29 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        "operationId": "get-companies-companyId-grocery-list-itemId",
+        "x-stoplight": {
+          "id": "wnpcgx21ydvad"
+        },
+        "description": "Retrieves the Grocery Item metadata associated with a specific company or supermarket branch based on unique Item identifier Item ID."
       }
     },
     "/companies/{companyId}/supplier-list": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "description": "This is the company id."
+        }
+      ],
       "get": {
+        "summary": "get-companyId-supplier-list",
         "tags": [
           "Supplier"
-        ],
-        "summary": "get-companyId-supplier-list",
-        "description": "This service lists all the suppliers associated with the company.",
-        "operationId": "get-companies-companyId-supplier-list",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the company id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -904,37 +827,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "description": "This is the status of the operation performed."
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "This is the message asscoiated with the status."
-                    },
-                    "suppliersList": {
-                      "type": "array",
-                      "description": "This is the supplier list associated with the company.",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "supplier": {
-                            "$ref": "#/components/schemas/Supplier",
-                            "description": "This is the supplier Object with all the details of suipplier."
-                          }
-                        },
-                        "required": [
-                          "supplier"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "suppliersList"
-                  ],
                   "x-examples": {
                     "Example 1": {
                       "suppliersList": [
@@ -983,6 +875,43 @@
                           }
                         }
                       ]
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "message",
+                    "suppliersList"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "f6dnwux5onz1n"
+                      },
+                      "description": "This is the status of the operation performed."
+                    },
+                    "message": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "2a47ata62t83w"
+                      },
+                      "description": "This is the message asscoiated with the status."
+                    },
+                    "suppliersList": {
+                      "type": "array",
+                      "description": "This is the supplier list associated with the company.",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "supplier"
+                        ],
+                        "properties": {
+                          "supplier": {
+                            "$ref": "#/components/schemas/Supplier",
+                            "description": "This is the supplier Object with all the details of suipplier."
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -1160,48 +1089,212 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        "operationId": "get-companies-companyId-supplier-list",
+        "x-stoplight": {
+          "id": "ftp5qdaf5e8tv"
+        },
+        "description": "This service lists all the suppliers along with the supplier metadata info associated with a specific company or supermarket branch."
       },
       "post": {
+        "summary": "post-companyId-supplier-list",
         "tags": [
           "Supplier"
         ],
-        "summary": "post-companyId-supplier-list",
-        "description": "This service adds new supplier to the supplier list",
-        "operationId": "post-companies-companyId-supplier-list",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the company id.",
-            "required": true,
-            "schema": {
-              "type": "string"
+        "responses": {
+          "201": {
+            "description": "New supplier is created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",                  
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "This is the status of the transaction."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "This is the message that provides additional information of successful transaction."
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "supplierId",
+                        "itemsList",
+                        "createdAt"
+                      ],
+                      "description": "This provides information on the transaction performed.",
+                      "properties": {
+                        "supplierId": {
+                          "type": "string",
+                          "description": "This is the supplier id that identifies a seller company."
+                        },
+                        "itemsList": {
+                          "type": "array",
+                          "description": "This is the item list that the seller sells.",
+                          "x-stoplight": {
+                            "id": "t0pm17b3ofk55"
+                          },
+                          "items": {
+                            "x-stoplight": {
+                              "id": "12qo3w34ho55b"
+                            },
+                            "type": "object",
+                            "required": [
+                              "itemId"
+                            ],
+                            "properties": {
+                              "itemId": {
+                                "type": "string",
+                                "x-stoplight": {
+                                  "id": "ln45ijor0jgdr"
+                                },
+                                "description": "This is the item which supplier sells to the company."
+                              }
+                            }
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "description": "This is the date on which the seller is added to the supplier list of the Grocery store."
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "status": "success",
+                      "message": "New supplier added to supplier list successfully",
+                      "data": {
+                        "supplierId": "SUP-7022",
+                        "itemsList": [
+                          {
+                            "itemId": "SKU-1001"
+                          },
+                          {
+                            "itemId": "SKU-1002"
+                          },
+                          {
+                            "itemId": "SKU-2045"
+                          }
+                        ],
+                        "createdAt": "2026-05-02T14:30:00Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "ValidationError": {
+                    "value": {
+                      "status": "error",
+                      "errorCode": 400,
+                      "errorType": "VALIDATION_ERROR",
+                      "errorMessage": "The request contains invalid data.",
+                      "details": {
+                        "traceId": "REQ-99210-XYZ",
+                        "reason": "Validation error.Invalid Item format SKU-XXXX"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "Unauthorized": {
+                    "value": {
+                      "status": "error",
+                      "errorCode": 401,
+                      "errorType": "UNAUTHORIZED",
+                      "errorMessage": "Password provided is invalid.Please provide valid password to continue.",
+                      "details": {
+                        "reason": "Passowrd Invalid",
+                        "traceId": "REQ-99210-XYZ"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "ResourceNotFound": {
+                    "value": {
+                      "status": "error",
+                      "errorCode": 404,
+                      "errorType": "RESOURCE_NOT_FOUND",
+                      "errorMessage": "The requested item could not be found.",
+                      "details": {
+                        "reason": "No resource found",
+                        "traceId": "REQ-99210-XYZ"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "ServerError": {
+                    "value": {
+                      "status": "error",
+                      "errorType": "SERVER_ERROR",
+                      "errorCode": 500,
+                      "errorMessage": "We are experiencing technical difficulties. Please try again later.",
+                      "details": {
+                        "traceId": "REQ-99210-XYZ",
+                        "reason": "Database connection timeout"
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
-        ],
+        },
+        "operationId": "post-companies-companyId-supplier-list",
+        "x-stoplight": {
+          "id": "iockd2t5kmw22"
+        },
+        "description": "This service adds new supplier to the supplier list associated with a specific company or supermarket branch",
         "requestBody": {
           "description": "This is the supplier object.",
           "content": {
@@ -1210,7 +1303,7 @@
                 "$ref": "#/components/schemas/Supplier"
               },
               "examples": {
-                "Example 1": {
+                "SupplierSchemaResponseSample": {
                   "value": {
                     "supplierId": "SUP-7022",
                     "supplierName": "Global Grains & Co",
@@ -1245,251 +1338,34 @@
               }
             }
           }
-        },
-        "responses": {
-          "201": {
-            "description": "New supplier is created successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "description": "This is the status of the transaction."
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "This is the message that provides additional information of successful transaction."
-                    },
-                    "data": {
-                      "type": "object",
-                      "description": "This provides information on the transaction performed.",
-                      "properties": {
-                        "supplierId": {
-                          "type": "string",
-                          "description": "This is the supplier id that identifies a seller company."
-                        },
-                        "itemsList": {
-                          "type": "array",
-                          "description": "This is the item list that the seller sells.",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "itemId": {
-                                "type": "string",
-                                "description": "This is the item which supplier sells to the company."
-                              }
-                            },
-                            "required": [
-                              "itemId"
-                            ]
-                          }
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "description": "This is the date on which the seller is added to the supplier list of the Grocery store."
-                        }
-                      },
-                      "required": [
-                        "supplierId",
-                        "itemsList",
-                        "createdAt"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-examples": {
-                    "Example 1": {
-                      "status": "success",
-                      "message": "New supplier added to supplier list successfully",
-                      "data": {
-                        "supplierId": "SUP-7022",
-                        "itemId": "SKU-1001",
-                        "createdAt": "2026-05-02T14:30:00Z"
-                      }
-                    }
-                  }
-                },
-                "examples": {
-                  "Example 1": {
-                    "value": {
-                      "status": "success",
-                      "message": "New supplier added to supplier list successfully",
-                      "data": {
-                        "supplierId": "SUP-7022",
-                        "itemsList": [
-                          {
-                            "itemId": "SKU-1001"
-                          },
-                          {
-                            "itemId": "SKU-1002"
-                          },
-                          {
-                            "itemId": "SKU-2045"
-                          }
-                        ],
-                        "createdAt": "2026-05-02T14:30:00Z"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                },
-                "examples": {
-                  "Example 1": {
-                    "value": {
-                      "status": "error",
-                      "errorCode": 400,
-                      "errorType": "VALIDATION_ERROR",
-                      "errorMessage": "The request contains invalid data.",
-                      "details": {
-                        "traceId": "REQ-99210-XYZ",
-                        "reason": "Validation error.Invalid Item format SKU-XXXX"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                },
-                "examples": {
-                  "Example 1": {
-                    "value": {
-                      "status": "error",
-                      "errorCode": 401,
-                      "errorType": "UNAUTHORIZED",
-                      "errorMessage": "Password provided is invalid.Please provide valid password to continue.",
-                      "details": {
-                        "reason": "Passowrd Invalid",
-                        "traceId": "REQ-99210-XYZ"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                },
-                "examples": {
-                  "Example 1": {
-                    "value": {
-                      "status": "error",
-                      "errorCode": 404,
-                      "errorType": "RESOURCE_NOT_FOUND",
-                      "errorMessage": "The requested item could not be found.",
-                      "details": {
-                        "reason": "No resource found",
-                        "traceId": "REQ-99210-XYZ"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                },
-                "examples": {
-                  "Example 1": {
-                    "value": {
-                      "status": "error",
-                      "errorType": "SERVER_ERROR",
-                      "errorCode": 500,
-                      "errorMessage": "We are experiencing technical difficulties. Please try again later.",
-                      "details": {
-                        "traceId": "REQ-99210-XYZ",
-                        "reason": "Database connection timeout"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        }
       }
     },
     "/companies/{companyId}/supplier-list/{supplierId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "description": "This describes the company id i.e grocery store id."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "supplierId",
+          "in": "path",
+          "required": true,
+          "description": "This describes the supplier id i.e the supplier company associated with grocery store."
+        }
+      ],
       "get": {
+        "summary": "get-companyId-supplier-list-supplierId",
         "tags": [
           "Supplier"
-        ],
-        "summary": "get-companyId-supplier-list-supplierId",
-        "description": "This service returns the supplier data associated with a particular supplierid.",
-        "operationId": "get-companies-companyId-supplier-list-supplierId",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This describes the company id i.e grocery store id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "supplierId",
-            "in": "path",
-            "description": "This describes the supplier id i.e the supplier company associated with grocery store.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -1510,7 +1386,7 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 },
                 "examples": {
-                  "Example 1": {
+                  "ValidationErrorExample 1": {
                     "value": {
                       "status": "error",
                       "errorCode": 400,
@@ -1534,7 +1410,7 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 },
                 "examples": {
-                  "Example 1": {
+                  "Unauthorized Example 1": {
                     "value": {
                       "status": "error",
                       "errorCode": 401,
@@ -1558,7 +1434,7 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 },
                 "examples": {
-                  "Example 1": {
+                  "ResourceNotFOund Example": {
                     "value": {
                       "status": "error",
                       "errorCode": 404,
@@ -1582,7 +1458,7 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 },
                 "examples": {
-                  "Example 1": {
+                  "Example ServerError": {
                     "value": {
                       "status": "error",
                       "errorType": "SERVER_ERROR",
@@ -1599,58 +1475,38 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        "operationId": "get-companies-companyId-supplier-list-supplierId",
+        "x-stoplight": {
+          "id": "dbwad1ee6mbdg"
+        },
+        "description": "This service retrieves the supplier metadata associated with a particular supplierid."
       }
     },
     "/companies/{companyId}/supplierlist-item/{itemId}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "description": "This describes the company id i.e grocery store id."
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "itemId",
+          "in": "path",
+          "required": true,
+          "description": "This describes the item that company sells."
+        }
+      ],
       "get": {
+        "summary": "get-companyId-supplier-list-itemId",
         "tags": [
           "Supplier"
-        ],
-        "summary": "get-companyId-supplier-list-itemId",
-        "description": "This retrieves the associated suppliers of a particular item.",
-        "operationId": "get-companies-companyId-supplier-list-itemId",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This describes the company id i.e grocery store id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "itemId",
-            "in": "path",
-            "description": "This describes the item that company sells.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -1659,27 +1515,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "suppliersList": {
-                      "type": "array",
-                      "description": "This is the supplier list array object.",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "supplier": {
-                            "$ref": "#/components/schemas/Supplier",
-                            "description": "This is the supplier details who supply the particular item to the company(Grocery store)."
-                          }
-                        },
-                        "required": [
-                          "supplier"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "suppliersList"
-                  ],
                   "x-examples": {
                     "Example 1": {
                       "suppliersList": [
@@ -1728,6 +1563,27 @@
                           }
                         }
                       ]
+                    }
+                  },
+                  "required": [
+                    "suppliersList"
+                  ],
+                  "properties": {
+                    "suppliersList": {
+                      "type": "array",
+                      "description": "This is the supplier list array object.",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "supplier"
+                        ],
+                        "properties": {
+                          "supplier": {
+                            "$ref": "#/components/schemas/Supplier",
+                            "description": "This is the supplier details who supply the particular item to the company(Grocery store)."
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -1903,182 +1759,30 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        "operationId": "get-companies-companyId-supplier-list-itemId",
+        "x-stoplight": {
+          "id": "eurrktt5ovabu"
+        },
+        "description": "This service retrieves the associated suppliers of a particular item."
       }
     },
     "/companies/{companyId}/newSupplyOrder-list": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "description": "This is the company Id."
+        }
+      ],
       "post": {
+        "summary": "post-companyId-newSupplyOrder-list",
         "tags": [
           "Order"
         ],
-        "summary": "post-companyId-newSupplyOrder-list",
-        "description": "This service helps place new order of items to a particular supplier.",
-        "operationId": "post-companies-companyId-newSupplyOrder-list",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the company Id.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "orderId": {
-                    "type": "string",
-                    "description": "This is the orderId against which the grocery items order is placed for a supplier."
-                  },
-                  "orderName": {
-                    "type": "string",
-                    "description": "The is the order name supporting the order id."
-                  },
-                  "supplierId": {
-                    "type": "string",
-                    "description": "This is the unique supplier id which tags the supplier to which the order is placed."
-                  },
-                  "supplierCompanyName": {
-                    "type": "string",
-                    "description": "This is the suppliercompany name."
-                  },
-                  "supplierName": {
-                    "type": "string",
-                    "description": "This is the supplier name."
-                  },
-                  "supplierContact": {
-                    "type": "string",
-                    "description": "This is the primary contact number of supplier."
-                  },
-                  "expectedDeliveryDate": {
-                    "type": "string",
-                    "description": "This is the expected stock delivery date by which the items are expected to be delivered by the supplierto the grocery store."
-                  },
-                  "stockDetails": {
-                    "type": "array",
-                    "description": "This is the order of stock items. if more that 1 item is supplied by the seller then all the needed items are placed from the seller are placed in 1 single request.",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "itemName": {
-                          "type": "string",
-                          "description": "THis is the item name required from supplier."
-                        },
-                        "itemId": {
-                          "type": "string",
-                          "description": "This is the unique ItemId associated with the item."
-                        },
-                        "itemCount": {
-                          "type": "integer",
-                          "description": "This is the item count i.e the max count of the item needed."
-                        },
-                        "itemDescription": {
-                          "type": "string",
-                          "description": "This is the description or additional information associated with the item."
-                        }
-                      },
-                      "required": [
-                        "itemName",
-                        "itemId",
-                        "itemCount",
-                        "itemDescription"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "orderId",
-                  "orderName",
-                  "supplierId",
-                  "supplierCompanyName",
-                  "supplierName",
-                  "supplierContact",
-                  "expectedDeliveryDate",
-                  "stockDetails"
-                ],
-                "x-examples": {
-                  "Example 1": {
-                    "orderId": "ORD-2026-001",
-                    "orderName": "Monthly Grocery Restock - May",
-                    "supplierId": "SUP-7022",
-                    "supplierCompanyName": "Global Grains & Co",
-                    "supplierName": "Rajesh Kumar",
-                    "supplierContact": "+91-9884455667",
-                    "expectedDeliveryDate": "2026-05-15",
-                    "stockDetails": [
-                      {
-                        "itemName": "Organic Whole Milk",
-                        "itemId": "SKU-1001",
-                        "itemCount": 50,
-                        "itemDescription": "1-Liter tetra packs, homogenized"
-                      },
-                      {
-                        "itemName": "Basmati Rice 5kg",
-                        "itemId": "SKU-2045",
-                        "itemCount": 20,
-                        "itemDescription": "Premium long-grain, aged 12 months"
-                      }
-                    ]
-                  }
-                }
-              },
-              "examples": {
-                "Example 1": {
-                  "value": {
-                    "orderId": "ORD-2026-001",
-                    "orderName": "Monthly Grocery Restock - May",
-                    "supplierId": "SUP-7022",
-                    "supplierCompanyName": "Global Grains & Co",
-                    "supplierName": "Rajesh Kumar",
-                    "supplierContact": "+91-9884455667",
-                    "expectedDeliveryDate": "2026-05-15",
-                    "stockDetails": [
-                      {
-                        "itemName": "Organic Whole Milk",
-                        "itemId": "SKU-1001",
-                        "itemCount": 50,
-                        "itemDescription": "1-Liter tetra packs, homogenized"
-                      },
-                      {
-                        "itemName": "Basmati Rice 5kg",
-                        "itemId": "SKU-2045",
-                        "itemCount": 20,
-                        "itemDescription": "Premium long-grain, aged 12 months"
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Order is successfully placed to supplier.",
@@ -2086,6 +1790,25 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "x-examples": {
+                    "Example 1": {
+                      "status": "success",
+                      "message": "Supply order created and notifications dispatched.",
+                      "data": {
+                        "orderId": "ORD-2026-05-001",
+                        "notificationStatus": {
+                          "isSmsSuccess": true,
+                          "isEmailSuccess": true,
+                          "failureReason": null
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "string",
@@ -2097,6 +1820,10 @@
                     },
                     "data": {
                       "type": "object",
+                      "required": [
+                        "orderId",
+                        "notificationStatus"
+                      ],
                       "description": "This is the data object that contains the core details of the order response.",
                       "properties": {
                         "orderId": {
@@ -2105,6 +1832,10 @@
                         },
                         "notificationStatus": {
                           "type": "object",
+                          "required": [
+                            "isSmsSuccess",
+                            "isEmailSuccess"
+                          ],
                           "description": "This is the notification object that contains notification properties.",
                           "properties": {
                             "isSmsSuccess": {
@@ -2122,34 +1853,7 @@
                               ],
                               "description": "This contains the details if the sms or email notifcation fails or anyother reason for request failure."
                             }
-                          },
-                          "required": [
-                            "isSmsSuccess",
-                            "isEmailSuccess"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "orderId",
-                        "notificationStatus"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-examples": {
-                    "Example 1": {
-                      "status": "success",
-                      "message": "Supply order created and notifications dispatched.",
-                      "data": {
-                        "orderId": "ORD-2026-05-001",
-                        "notificationStatus": {
-                          "isSmsSuccess": true,
-                          "isEmailSuccess": true,
-                          "failureReason": null
+                          }
                         }
                       }
                     }
@@ -2215,67 +1919,161 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
+        "operationId": "post-companies-companyId-newSupplyOrder-list",
+        "x-stoplight": {
+          "id": "o11rmdz9jr1ut"
+        },
+        "description": "This service helps place new order of items to a particular supplier associated with a specific company or supermarket branch.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "x-examples": {
+                  "Example 1": {
+                    "orderId": "ORD-2026-001",
+                    "orderName": "Monthly Grocery Restock - May",
+                    "supplierId": "SUP-7022",
+                    "supplierCompanyName": "Global Grains & Co",
+                    "supplierName": "Rajesh Kumar",
+                    "supplierContact": "+91-9884455667",
+                    "expectedDeliveryDate": "2026-05-15",
+                    "stockDetails": [
+                      {
+                        "itemName": "Organic Whole Milk",
+                        "itemId": "SKU-1001",
+                        "itemCount": 50,
+                        "itemDescription": "1-Liter tetra packs, homogenized"
+                      },
+                      {
+                        "itemName": "Basmati Rice 5kg",
+                        "itemId": "SKU-2045",
+                        "itemCount": 20,
+                        "itemDescription": "Premium long-grain, aged 12 months"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "orderId",
+                  "orderName",
+                  "supplierId",
+                  "supplierCompanyName",
+                  "supplierName",
+                  "supplierContact",
+                  "expectedDeliveryDate",
+                  "stockDetails"
+                ],
+                "properties": {
+                  "orderId": {
+                    "type": "string",
+                    "description": "This is the orderId against which the grocery items order is placed for a supplier."
+                  },
+                  "orderName": {
+                    "type": "string",
+                    "description": "The is the order name supporting the order id."
+                  },
+                  "supplierId": {
+                    "type": "string",
+                    "description": "This is the unique supplier id which tags the supplier to which the order is placed."
+                  },
+                  "supplierCompanyName": {
+                    "type": "string",
+                    "description": "This is the suppliercompany name."
+                  },
+                  "supplierName": {
+                    "type": "string",
+                    "description": "This is the supplier name."
+                  },
+                  "supplierContact": {
+                    "type": "string",
+                    "description": "This is the primary contact number of supplier."
+                  },
+                  "expectedDeliveryDate": {
+                    "type": "string",
+                    "description": "This is the expected stock delivery date by which the items are expected to be delivered by the supplierto the grocery store."
+                  },
+                  "stockDetails": {
+                    "type": "array",
+                    "description": "This is the order of stock items. if more that 1 item is supplied by the seller then all the needed items are placed from the seller are placed in 1 single request.",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "itemName",
+                        "itemId",
+                        "itemCount",
+                        "itemDescription"
+                      ],
+                      "properties": {
+                        "itemName": {
+                          "type": "string",
+                          "description": "THis is the item name required from supplier."
+                        },
+                        "itemId": {
+                          "type": "string",
+                          "description": "This is the unique ItemId associated with the item."
+                        },
+                        "itemCount": {
+                          "type": "integer",
+                          "description": "This is the item count i.e the max count of the item needed."
+                        },
+                        "itemDescription": {
+                          "type": "string",
+                          "description": "This is the description or additional information associated with the item."
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "orderId": "ORD-2026-001",
+                    "orderName": "Monthly Grocery Restock - May",
+                    "supplierId": "SUP-7022",
+                    "supplierCompanyName": "Global Grains & Co",
+                    "supplierName": "Rajesh Kumar",
+                    "supplierContact": "+91-9884455667",
+                    "expectedDeliveryDate": "2026-05-15",
+                    "stockDetails": [
+                      {
+                        "itemName": "Organic Whole Milk",
+                        "itemId": "SKU-1001",
+                        "itemCount": 50,
+                        "itemDescription": "1-Liter tetra packs, homogenized"
+                      },
+                      {
+                        "itemName": "Basmati Rice 5kg",
+                        "itemId": "SKU-2045",
+                        "itemCount": 20,
+                        "itemDescription": "Premium long-grain, aged 12 months"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        }
       }
     },
     "/companies/{companyId}/newSupplyOrderStatus": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "description": "This is the company id, an unique identifier for the grocery store."
+        }
+      ],
       "get": {
+        "summary": "get-companyId-newSupplyOrderStatus",
         "tags": [
           "Order"
-        ],
-        "summary": "get-companyId-newSupplyOrderStatus",
-        "description": "This service tracks the order placed to the supplier and its status. The service defaults to last 7 days from the current date and also accepts from and to date as optional parameters.",
-        "operationId": "get-companies-companyId-newSupplyOrderStatus",
-        "parameters": [
-          {
-            "name": "fromDate",
-            "in": "query",
-            "description": "This is the \"from\" date from which the order will be filtered and displayed.",
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          },
-          {
-            "name": "toDate",
-            "in": "query",
-            "description": "This is \"to\" date till which the order will be filtered and displayed.",
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          },
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the company id, an unique identifier for the grocery store.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -2284,52 +2082,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "description": "This is the status of the service."
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "This is the additional message associated with the status."
-                    },
-                    "data": {
-                      "type": "object",
-                      "description": "This is the data object containing the orderdetails.",
-                      "properties": {
-                        "totalOrders": {
-                          "type": "integer",
-                          "description": "This is the total orders placed between the specified dates or default last 7 days from current date."
-                        },
-                        "fromDate": {
-                          "type": "string",
-                          "description": "This is the \"from\" date from which the total orders is displayed"
-                        },
-                        "toDate": {
-                          "type": "string",
-                          "description": "This is the \"to\" date till which the order requests were placed."
-                        },
-                        "orders": {
-                          "type": "array",
-                          "description": "This is the order object containing the itemdetials for each order.",
-                          "items": {
-                            "$ref": "#/components/schemas/OrderResponse"
-                          }
-                        }
-                      },
-                      "required": [
-                        "totalOrders",
-                        "fromDate",
-                        "toDate",
-                        "orders"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
                   "x-examples": {
                     "Example 1": {
                       "status": "success",
@@ -2368,6 +2120,52 @@
                             ]
                           }
                         ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "This is the status of the service."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "This is the additional message associated with the status."
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "This is the data object containing the orderdetails.",
+                      "required": [
+                        "totalOrders",
+                        "fromDate",
+                        "toDate",
+                        "orders"
+                      ],
+                      "properties": {
+                        "totalOrders": {
+                          "type": "integer",
+                          "description": "This is the total orders placed between the specified dates or default last 7 days from current date."
+                        },
+                        "fromDate": {
+                          "type": "string",
+                          "description": "This is the \"from\" date from which the total orders is displayed"
+                        },
+                        "toDate": {
+                          "type": "string",
+                          "description": "This is the \"to\" date till which the order requests were placed."
+                        },
+                        "orders": {
+                          "description": "This is the order object containing the itemdetials for each order.",
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OrderResponse"
+                          }
+                        }
                       }
                     }
                   }
@@ -2522,151 +2320,37 @@
             }
           }
         },
-        "security": [
+        "operationId": "get-companies-companyId-newSupplyOrderStatus",
+        "x-stoplight": {
+          "id": "u2x2oj1jvz55r"
+        },
+        "description": "This service tracks the order placed to the supplier and its status. The order details fetched defaults to last 7 days from the current date. The service also provides customizable date options as optional parameters.",
+        "parameters": [
           {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "name": "fromDate",
+            "description": "This is the \"from\" date from which the order will be filtered and displayed."
           },
           {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "in": "query",
+            "name": "toDate",
+            "description": "This is \"to\" date till which the order will be filtered and displayed."
           }
         ]
       },
       "patch": {
+        "summary": "patch-companyId-newSupplyOrderStatus",
         "tags": [
           "Order"
         ],
-        "summary": "patch-companyId-newSupplyOrderStatus",
-        "description": "This is used to update the stock received status and received date for the items placed in an order.",
-        "operationId": "patch-companies-companyId-newSupplyOrderStatus",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the company id, an unique identifier for the grocery store.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "orders": {
-                    "type": "array",
-                    "description": "This is the updated order details object with stock received status and date received info.",
-                    "items": {
-                      "$ref": "#/components/schemas/OrderResponse"
-                    }
-                  }
-                },
-                "required": [
-                  "orders"
-                ],
-                "x-examples": {
-                  "Example 1": {
-                    "orders": [
-                      {
-                        "orderId": "ORD-2026-05-001",
-                        "additionalInfo": "Delivered to warehouse gate 2",
-                        "itemsList": [
-                          {
-                            "itemId": "SKU-1001",
-                            "itemName": "Organic Whole Milk",
-                            "itemCount": 10,
-                            "isStockReceived": true,
-                            "stockReceivedDate": "2026-05-01"
-                          },
-                          {
-                            "itemId": "SKU-1002",
-                            "itemName": "Salted Butter 500g",
-                            "itemCount": 10,
-                            "isStockReceived": true,
-                            "stockReceivedDate": "2026-05-01"
-                          }
-                        ]
-                      },
-                      {
-                        "orderId": "ORD-2026-05-005",
-                        "additionalInfo": "Delayed due to transport strike",
-                        "itemsList": [
-                          {
-                            "itemId": "SKU-2045",
-                            "itemName": "Basmati Rice 5kg",
-                            "itemCount": 10,
-                            "isStockReceived": false,
-                            "stockReceivedDate": null
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              },
-              "examples": {
-                "Example 1": {
-                  "value": {
-                    "orders": [
-                      {
-                        "orderId": "ORD-2026-05-001",
-                        "supplierId": "SUP-7022",
-                        "additionalInfo": "Delivered to warehouse gate 2",
-                        "itemsList": [
-                          {
-                            "itemId": "SKU-1001",
-                            "itemName": "Organic Whole Milk",
-                            "itemCount": 10,
-                            "isStockReceived": true,
-                            "stockReceivedDate": "2026-05-01"
-                          },
-                          {
-                            "itemId": "SKU-1002",
-                            "itemName": "Salted Butter 500g",
-                            "itemCount": 10,
-                            "isStockReceived": true,
-                            "stockReceivedDate": "2026-05-01"
-                          }
-                        ]
-                      },
-                      {
-                        "orderId": "ORD-2026-05-005",
-                        "supplierId": "SUP-7022",
-                        "additionalInfo": "Delayed due to transport strike",
-                        "itemsList": [
-                          {
-                            "itemId": "SKU-2045",
-                            "itemName": "Basmati Rice 5kg",
-                            "itemCount": 10,
-                            "isStockReceived": false,
-                            "stockReceivedDate": null
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Updated the order Id successfully with order status.",
@@ -2674,68 +2358,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "description": "This is the status of the update triggered on an order id."
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "This is the additional message supporting the status."
-                    },
-                    "data": {
-                      "type": "object",
-                      "description": "This is the data object containing the update status.",
-                      "properties": {
-                        "orderIdList": {
-                          "type": "array",
-                          "description": "This is the order id list submitted for update with stock status.",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "orderId": {
-                                "type": "string",
-                                "description": "This is the unique order to which the updates are added."
-                              },
-                              "itemIdList": {
-                                "type": "array",
-                                "description": "This is the item list object associated with every order",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "itemId": {
-                                      "type": "string",
-                                      "description": "THis is the unique itemId in which updates are performed."
-                                    },
-                                    "status": {
-                                      "type": "string",
-                                      "description": "This is the status related to the item id update. This can contain both success message or failure reason."
-                                    }
-                                  },
-                                  "required": [
-                                    "itemId",
-                                    "status"
-                                  ]
-                                }
-                              }
-                            },
-                            "required": [
-                              "orderId",
-                              "itemIdList"
-                            ]
-                          }
-                        }
-                      },
-                      "required": [
-                        "orderIdList"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
                   "x-examples": {
                     "Example 1": {
                       "status": "success",
@@ -2765,6 +2387,68 @@
                             ]
                           }
                         ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "This is the status of the update triggered on an order id."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "This is the additional message supporting the status."
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "orderIdList"
+                      ],
+                      "description": "This is the data object containing the update status.",
+                      "properties": {
+                        "orderIdList": {
+                          "type": "array",
+                          "description": "This is the order id list submitted for update with stock status.",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "orderId",
+                              "itemIdList"
+                            ],
+                            "properties": {
+                              "orderId": {
+                                "type": "string",
+                                "description": "This is the unique order to which the updates are added."
+                              },
+                              "itemIdList": {
+                                "type": "array",
+                                "description": "This is the item list object associated with every order",
+                                "items": {
+                                  "type": "object",
+                                  "required": [
+                                    "itemId",
+                                    "status"
+                                  ],
+                                  "properties": {
+                                    "itemId": {
+                                      "type": "string",
+                                      "description": "THis is the unique itemId in which updates are performed."
+                                    },
+                                    "status": {
+                                      "type": "string",
+                                      "description": "This is the status related to the item id update. This can contain both success message or failure reason."
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -2903,49 +2587,132 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
+        "operationId": "patch-companies-companyId-newSupplyOrderStatus",
+        "x-stoplight": {
+          "id": "fh2gtfbaxj8e9"
+        },
+        "description": "This  service is used to update the stock received status and received date properties for the items placed in an order.This helps in efficient order fulfillment tracking.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "x-examples": {
+                  "Example 1": {
+                    "orders": [
+                      {
+                        "orderId": "ORD-2026-05-001",
+                        "additionalInfo": "Delivered to warehouse gate 2",
+                        "itemsList": [
+                          {
+                            "itemId": "SKU-1001",
+                            "itemName": "Organic Whole Milk",
+                            "itemCount": 10,
+                            "isStockReceived": true,
+                            "stockReceivedDate": "2026-05-01"
+                          },
+                          {
+                            "itemId": "SKU-1002",
+                            "itemName": "Salted Butter 500g",
+                            "itemCount": 10,
+                            "isStockReceived": true,
+                            "stockReceivedDate": "2026-05-01"
+                          }
+                        ]
+                      },
+                      {
+                        "orderId": "ORD-2026-05-005",
+                        "additionalInfo": "Delayed due to transport strike",
+                        "itemsList": [
+                          {
+                            "itemId": "SKU-2045",
+                            "itemName": "Basmati Rice 5kg",
+                            "itemCount": 10,
+                            "isStockReceived": false,
+                            "stockReceivedDate": null
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "orders"
+                ],
+                "properties": {
+                  "orders": {
+                    "type": "array",
+                    "description": "This is the updated order details object with stock received status and date received info.",
+                    "items": {
+                      "$ref": "#/components/schemas/OrderResponse"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "orders": [
+                      {
+                        "orderId": "ORD-2026-05-001",
+                        "supplierId": "SUP-7022",
+                        "additionalInfo": "Delivered to warehouse gate 2",
+                        "itemsList": [
+                          {
+                            "itemId": "SKU-1001",
+                            "itemName": "Organic Whole Milk",
+                            "itemCount": 10,
+                            "isStockReceived": true,
+                            "stockReceivedDate": "2026-05-01"
+                          },
+                          {
+                            "itemId": "SKU-1002",
+                            "itemName": "Salted Butter 500g",
+                            "itemCount": 10,
+                            "isStockReceived": true,
+                            "stockReceivedDate": "2026-05-01"
+                          }
+                        ]
+                      },
+                      {
+                        "orderId": "ORD-2026-05-005",
+                        "supplierId": "SUP-7022",
+                        "additionalInfo": "Delayed due to transport strike",
+                        "itemsList": [
+                          {
+                            "itemId": "SKU-2045",
+                            "itemName": "Basmati Rice 5kg",
+                            "itemCount": 10,
+                            "isStockReceived": false,
+                            "stockReceivedDate": null
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        }
       }
     },
     "/companies/{companyId}/supplierPaymentDetails": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "companyId",
+          "in": "path",
+          "required": true,
+          "description": "This is the unique company id of the grocery store."
+        }
+      ],
       "get": {
+        "summary": "get-companyId-supplierPaymentDetails",
         "tags": [
           "Payment"
-        ],
-        "summary": "get-companyId-supplierPaymentDetails",
-        "description": "This service retrieves payment details of orders pending payment to suppliers.If an order is already paid then the orderId will not be retrieved in this service.",
-        "operationId": "get-companies-companyId-supplierPaymentDetails",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the unique company id of the grocery store.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -2954,33 +2721,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "description": "THis is the status of the transaction."
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "This is the associated status message"
-                    },
-                    "data": {
-                      "type": "object",
-                      "description": "Thisis the data object that contains payment details",
-                      "properties": {
-                        "totalRecords": {
-                          "type": "integer",
-                          "description": "THis is the total number of records helpful for pagination."
-                        },
-                        "paymentList": {
-                          "type": "array",
-                          "description": "this is the payment list. so all the payments where payment.isPaymentSuccess is false i.e for the orders that are pending payment , the details will be retrieved.",
-                          "items": {
-                            "$ref": "#/components/schemas/SupplierPayment"
-                          }
-                        }
-                      }
-                    }
-                  },
                   "x-examples": {
                     "Example 1": {
                       "status": "success",
@@ -3020,6 +2760,33 @@
                             ]
                           }
                         ]
+                      }
+                    }
+                  },
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "THis is the status of the transaction."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "This is the associated status message"
+                    },
+                    "data": {
+                      "type": "object",
+                      "description": "Thisis the data object that contains payment details",
+                      "properties": {
+                        "totalRecords": {
+                          "type": "integer",
+                          "description": "THis is the total number of records helpful for pagination."
+                        },
+                        "paymentList": {
+                          "type": "array",
+                          "description": "this is the payment list. so all the payments where payment.isPaymentSuccess is false i.e for the orders that are pending payment , the details will be retrieved.",
+                          "items": {
+                            "$ref": "#/components/schemas/SupplierPayment"
+                          }
+                        }
                       }
                     }
                   }
@@ -3168,92 +2935,17 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        "operationId": "get-companies-companyId-supplierPaymentDetails",
+        "x-stoplight": {
+          "id": "satop92a4rw07"
+        },
+        "description": "This service retrieves payment details of orders pending payment to suppliers.If an order is already paid then the orderId will not be retrieved in this service."
       },
       "post": {
+        "summary": "post-companyId-supplierPaymentDetails",
         "tags": [
           "Payment"
         ],
-        "summary": "post-companyId-supplierPaymentDetails",
-        "description": "This is the payment entry created for an order id for a supplier. ",
-        "operationId": "post-companies-companyId-supplierPaymentDetails",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the unique company id of the grocery store.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SupplierPayment"
-              },
-              "examples": {
-                "Example 1": {
-                  "value": {
-                    "paymentId": "PAY-99810",
-                    "orderId": "ORD-2026-05-102",
-                    "orderName": "Bulk Grain Purchase - Q2",
-                    "supplierId": "SUP-7022",
-                    "supplierCompanyName": "Global Grains & Co",
-                    "supplierName": "Rajesh Kumar",
-                    "supplierContact": "+91-9884455667",
-                    "paymentSummary": {
-                      "totalAmountToBePaid": 50000,
-                      "advanceAmount": 25000,
-                      "isPaymentSuccess": true,
-                      "paymentDate": "2026-05-05"
-                    },
-                    "stockDetails": [
-                      {
-                        "itemId": "SKU-2045",
-                        "itemName": "Basmati Rice 5kg",
-                        "itemCount": 100,
-                        "paymentAmount": 35000,
-                        "isStockSent": true
-                      },
-                      {
-                        "itemId": "SKU-2048",
-                        "itemName": "Sona Masuri 5kg",
-                        "itemCount": 50,
-                        "paymentAmount": 15000,
-                        "isStockSent": false
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "201": {
             "description": "successsfully creating the supplier payment entry.",
@@ -3261,6 +2953,22 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "x-examples": {
+                    "Example 1": {
+                      "status": "success",
+                      "message": "Payment record processed successfully",
+                      "data": {
+                        "paymentId": "PAY-2026-05-102-X9",
+                        "createdAt": "2026-05-05T22:58:21Z",
+                        "transactionType": "SUPPLIER_PAYMENT"
+                      }
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "string",
@@ -3272,6 +2980,11 @@
                     },
                     "data": {
                       "type": "object",
+                      "required": [
+                        "paymentId",
+                        "createdAt",
+                        "transactionType"
+                      ],
                       "description": "This is the data obkect that contains the payment info. ",
                       "properties": {
                         "paymentId": {
@@ -3287,27 +3000,6 @@
                           "description": "This is the transaction type defaults to \"SUPPLIER_PAYMENT\" as we dont have any other kind as of now and will be used in future for differentiation.",
                           "default": "SUPPLIER_PAYMENT"
                         }
-                      },
-                      "required": [
-                        "paymentId",
-                        "createdAt",
-                        "transactionType"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "x-examples": {
-                    "Example 1": {
-                      "status": "success",
-                      "message": "Payment record processed successfully",
-                      "data": {
-                        "paymentId": "PAY-2026-05-102-X9",
-                        "createdAt": "2026-05-05T22:58:21Z",
-                        "transactionType": "SUPPLIER_PAYMENT"
                       }
                     }
                   }
@@ -3412,48 +3104,11 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
-          }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
-      },
-      "patch": {
-        "tags": [
-          "Payment"
-        ],
-        "summary": "patch-companyId-supplierPaymentDetails",
-        "description": "This service updates the payment entry for an order once payment is done.Key fields payment date and isPayment success are updated through this.",
-        "operationId": "patch-companies-companyId-supplierPaymentDetails",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "description": "This is the unique company id of the grocery store.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "operationId": "post-companies-companyId-supplierPaymentDetails",
+        "x-stoplight": {
+          "id": "54fxwshixlkc7"
+        },
+        "description": "This is the payment entry containing the details of amount to be paid for individual items and total amount to pay ; This is created for an order id for a supplier. ",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3497,7 +3152,13 @@
               }
             }
           }
-        },
+        }
+      },
+      "patch": {
+        "summary": "patch-companyId-supplierPaymentDetails",
+        "tags": [
+          "Payment"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -3505,6 +3166,17 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "x-examples": {
+                    "Example 1": {
+                      "status": "success",
+                      "message": "Payment record processed successfully",
+                      "data": {
+                        "paymentId": "PAY-2026-05-102-X9",
+                        "updatedAt": "2026-05-05T22:58:21Z",
+                        "transactionType": "SUPPLIER_PAYMENT"
+                      }
+                    }
+                  },
                   "properties": {
                     "status": {
                       "type": "string",
@@ -3531,17 +3203,6 @@
                           "description": "This is the transaction type.Defaults to \"SUPPLIER_PAYMENT\".",
                           "default": "SUPPLIER_PAYMENT"
                         }
-                      }
-                    }
-                  },
-                  "x-examples": {
-                    "Example 1": {
-                      "status": "success",
-                      "message": "Payment record processed successfully",
-                      "data": {
-                        "paymentId": "PAY-2026-05-102-X9",
-                        "updatedAt": "2026-05-05T22:58:21Z",
-                        "transactionType": "SUPPLIER_PAYMENT"
                       }
                     }
                   }
@@ -3659,52 +3320,96 @@
             }
           }
         },
-        "security": [
-          {
-            "user": []
+        "operationId": "patch-companies-companyId-supplierPaymentDetails",
+        "x-stoplight": {
+          "id": "j9dumt427v3i6"
+        },
+        "description": "This service updates the payment entry for an order once payment is done offline.Key fields that gets updated are payment date and Payment success indicator. This helps in Payment fulfillment tracking and in financial audits.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupplierPayment"
+              },
+              "examples": {
+                "Example 1": {
+                  "value": {
+                    "paymentId": "PAY-99810",
+                    "orderId": "ORD-2026-05-102",
+                    "orderName": "Bulk Grain Purchase - Q2",
+                    "supplierId": "SUP-7022",
+                    "supplierCompanyName": "Global Grains & Co",
+                    "supplierName": "Rajesh Kumar",
+                    "supplierContact": "+91-9884455667",
+                    "paymentSummary": {
+                      "totalAmountToBePaid": 50000,
+                      "advanceAmount": 25000,
+                      "isPaymentSuccess": true,
+                      "paymentDate": "2026-05-05"
+                    },
+                    "stockDetails": [
+                      {
+                        "itemId": "SKU-2045",
+                        "itemName": "Basmati Rice 5kg",
+                        "itemCount": 100,
+                        "paymentAmount": 35000,
+                        "isStockSent": true
+                      },
+                      {
+                        "itemId": "SKU-2048",
+                        "itemName": "Sona Masuri 5kg",
+                        "itemCount": 50,
+                        "paymentAmount": 15000,
+                        "isStockSent": false
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           }
-        ],
-        "servers": [
-          {
-            "url": "http://localhost:8085/stockChecker",
-            "description": "dev"
-          },
-          {
-            "url": "https://int.freeapp.store/stockChecker",
-            "description": "int"
-          },
-          {
-            "url": "https://qa.freeapp.store/stockChecker",
-            "description": "qa"
-          },
-          {
-            "url": "https://prod.freeapp.store/stockChecker",
-            "description": "prod"
-          }
-        ]
+        }
       }
     }
   },
   "components": {
-    "securitySchemes": {
-      "user": {
-        "type": "http",
-        "scheme": "basic"
-      }
-    },
     "schemas": {
       "Item": {
-        "type": "object",
         "title": "Item",
+        "x-stoplight": {
+          "id": "3dyswnpyc8lby"
+        },
+        "type": "object",
         "description": "This is the details of each item.",
+        "required": [
+          "itemId",
+          "itemCategory",
+          "itemName",
+          "companyName",
+          "companyId",
+          "totalItemCount",
+          "currentStockCount",
+          "sellerName",
+          "sellerContactNumber",
+          "lastRestockedDate",
+          "expectedRestockDate",
+          "itemPackedDt",
+          "itemExpiryDate"
+        ],
         "properties": {
           "itemId": {
             "type": "string",
-            "description": "This is the unique item no."
+            "description": "This is the unique item no.",
+            "x-stoplight": {
+              "id": "cb1nb47qkpgwa"
+            }
           },
           "itemCategory": {
             "$ref": "#/components/schemas/ItemCategory",
-            "description": "This is the item Category which can be used in filter criteria to filter out the grocery list and get responses."
+            "description": "This is the item Category which can be used in filter criteria to filter out the grocery list and get responses.",
+            "x-stoplight": {
+              "id": "a7yfuenioi5su"
+            }
           },
           "itemName": {
             "type": "string",
@@ -3770,96 +3475,21 @@
             "description": "This captures the item expiry date and items beyond expiry date must be periodically removed. All the persiahble foods should have a sticker indicating the dates.",
             "format": "date"
           }
-        },
-        "required": [
-          "itemId",
-          "itemCategory",
-          "itemName",
-          "companyName",
-          "companyId",
-          "totalItemCount",
-          "currentStockCount",
-          "sellerName",
-          "sellerContactNumber",
-          "lastRestockedDate",
-          "expectedRestockDate",
-          "itemPackedDt",
-          "itemExpiryDate"
-        ]
-      },
-      "ItemCategory": {
-        "type": "string",
-        "enum": [
-          "Cereals",
-          "Pulses",
-          "Vegetables",
-          "Fruits",
-          "Beverages",
-          "Snacks",
-          "NonFood",
-          "Imported",
-          "Readymadefood",
-          "Stationeries",
-          "DiaryProducts"
-        ],
-        "title": "ItemCategory"
+        }
       },
       "ErrorResponse": {
         "type": "object",
-        "description": "Error Component standard across all operations.",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "This describes the status of the transaction. In the error scenario ddefault value will be 'error'."
-          },
-          "errorCode": {
-            "type": "integer",
-            "description": "This is the error code.",
-            "examples": [
-              400
-            ]
-          },
-          "errorType": {
-            "type": "string",
-            "description": "This describes the exact error Type. Adds more info on why the transaction failed."
-          },
-          "errorMessage": {
-            "type": "string",
-            "description": "This describes the supporting or more descriptive error msg for a particular error type."
-          },
-          "details": {
-            "type": "object",
-            "description": "This describes the extra details for finding the root cause.",
-            "properties": {
-              "traceId": {
-                "type": "string",
-                "description": "Unique id for the particular transaction."
-              },
-              "reason": {
-                "type": "string",
-                "description": "Additional details that adds to the failure root cause."
-              },
-              "itemNo": {
-                "type": "string",
-                "description": "This is the unique identifying number for the whole transaction. This comes in request.This is also optional if the error is related to incoming request parameters, then this will be coming in response."
-              },
-              "conflictingField": {
-                "type": "string",
-                "description": "If there are any conflicting fields on that particular transaction and due to which the whole operation failed then this will be coming in response. It is optional field."
-              }
-            },
-            "required": [
-              "traceId",
-              "reason"
-            ]
+        "x-examples": {
+          "Example 1": {
+            "status": "error",
+            "errorType": "SERVER_ERROR",
+            "message": "We are experiencing technical difficulties. Please try again later.",
+            "details": {
+              "traceId": "REQ-99210-XYZ",
+              "reason": "Database connection timeout"
+            }
           }
         },
-        "required": [
-          "status",
-          "errorCode",
-          "errorType",
-          "errorMessage"
-        ],
         "examples": [
           {
             "status": "error",
@@ -3922,130 +3552,95 @@
             }
           }
         ],
-        "x-examples": {
-          "Example 1": {
-            "status": "error",
-            "errorType": "SERVER_ERROR",
-            "message": "We are experiencing technical difficulties. Please try again later.",
-            "details": {
-              "traceId": "REQ-99210-XYZ",
-              "reason": "Database connection timeout"
+        "description": "Error Component standard across all operations.",
+        "required": [
+          "status",
+          "errorCode",
+          "errorType",
+          "errorMessage"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "This describes the status of the transaction. In the error scenario ddefault value will be 'error'."
+          },
+          "errorCode": {
+            "type": "integer",
+            "x-stoplight": {
+              "id": "jggf9wcejop38"
+            },
+            "description": "This is the error code.",
+            "example": 400
+          },
+          "errorType": {
+            "type": "string",
+            "description": "This describes the exact error Type. Adds more info on why the transaction failed."
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "This describes the supporting or more descriptive error msg for a particular error type.",
+            "x-stoplight": {
+              "id": "ab5wl513yjc9e"
+            }
+          },
+          "details": {
+            "type": "object",
+            "description": "This describes the extra details for finding the root cause.",
+            "required": [
+              "traceId",
+              "reason"
+            ],
+            "properties": {
+              "traceId": {
+                "type": "string",
+                "description": "Unique id for the particular transaction."
+              },
+              "reason": {
+                "type": "string",
+                "description": "Additional details that adds to the failure root cause."
+              },
+              "itemNo": {
+                "type": "string",
+                "x-stoplight": {
+                  "id": "pv91314hp18z7"
+                },
+                "description": "This is the unique identifying number for the whole transaction. This comes in request.This is also optional if the error is related to incoming request parameters, then this will be coming in response."
+              },
+              "conflictingField": {
+                "type": "string",
+                "x-stoplight": {
+                  "id": "bmr8j8vfiiwr7"
+                },
+                "description": "If there are any conflicting fields on that particular transaction and due to which the whole operation failed then this will be coming in response. It is optional field."
+              }
             }
           }
         }
       },
       "Supplier": {
         "type": "object",
-        "properties": {
-          "supplierId": {
-            "type": "string",
-            "description": "This is the unique Id that identifies the supplier. "
-          },
-          "supplierName": {
-            "type": "string",
-            "description": "This is the supplier name."
-          },
-          "itemsList": {
-            "type": "array",
-            "description": "This si the item Id list that this supplier supplies to the Grocery Store.It can be 1 product or many.",
-            "items": {
-              "type": "object",
-              "properties": {
-                "itemId": {
-                  "type": "string",
-                  "description": "THis is the item Id that supplier sells."
-                }
-              },
-              "required": [
-                "itemId"
-              ]
+        "x-examples": {
+          "Example 1": {
+            "supplierId": "SUP-5001",
+            "supplierName": "FreshLine Wholesale",
+            "itemId": "SKU-1001",
+            "companyName": "DairyFresh Ltd",
+            "contactNumber": "+91-9840012345",
+            "alternateContactNumber": "+91-44-24509988",
+            "emailId": "orders@freshline.in",
+            "agreementDetails": {
+              "advanceAmountPaid": 25000,
+              "lastPaymentDate": "2026-04-10",
+              "nextPaymentDate": "2026-05-10",
+              "lastPaidAmount": 12500.5,
+              "expectedPaidAmount": 15000
+            },
+            "deliverySchedule": {
+              "lastRestockedDate": "2026-04-28",
+              "expectedRestockDate": "2026-05-05"
             }
-          },
-          "companyName": {
-            "type": "string",
-            "description": "This si the supplier's registered company name."
-          },
-          "contactNumber": {
-            "type": "string",
-            "description": "This si the primary contact number of the supplier."
-          },
-          "alternateContactNumber": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "description": "This is the laternate contact number and this is optional."
-          },
-          "emailId": {
-            "type": "string",
-            "description": "THis is the emailId to officially mail all the agreement and payment details."
-          },
-          "deliverySchedule": {
-            "type": "object",
-            "description": "This object holds delivery schedule data during which the seller regularly sends stock to the market",
-            "properties": {
-              "lastRestockedDate": {
-                "type": "string",
-                "description": "This is the last date when the delivery was made by the supplier.",
-                "format": "YYYY-MM-DD"
-              },
-              "expectedRestockDate": {
-                "type": "string",
-                "description": "THis is the next future date when the delivery is expected to happen.",
-                "format": "YYYY-MM-DD"
-              }
-            },
-            "required": [
-              "lastRestockedDate",
-              "expectedRestockDate"
-            ]
-          },
-          "agreementDetails": {
-            "type": "object",
-            "description": "This is the agreement details object containing the agreement details made with the supplier.",
-            "properties": {
-              "advanceAmountPaid": {
-                "type": "number",
-                "description": "THis is the advance amount paid during the initial agreement."
-              },
-              "lastPaymentDate": {
-                "type": "string",
-                "description": "This property holds the last payment date when the supplier was provided with the money for supplying items.",
-                "format": "YYYY-MM-DD"
-              },
-              "nextPaymentDate": {
-                "type": "string",
-                "description": "THis property keeps track of the next payment date.",
-                "format": "YYYY-MM-DD"
-              },
-              "lastPaidAmount": {
-                "type": "number",
-                "description": "THis is the last paid amount. Amount paid to seller during last payment date."
-              },
-              "expectedPayAmount": {
-                "type": "number",
-                "description": "THis is the due amount to be paid to seller."
-              }
-            },
-            "required": [
-              "advanceAmountPaid",
-              "lastPaymentDate",
-              "nextPaymentDate",
-              "lastPaidAmount",
-              "expectedPayAmount"
-            ]
           }
         },
-        "required": [
-          "supplierId",
-          "supplierName",
-          "itemsList",
-          "companyName",
-          "contactNumber",
-          "emailId",
-          "deliverySchedule",
-          "agreementDetails"
-        ],
         "examples": [
           {
             "supplierId": "SUP-7022",
@@ -4078,87 +3673,155 @@
             }
           }
         ],
-        "x-examples": {
-          "Example 1": {
-            "supplierId": "SUP-5001",
-            "supplierName": "FreshLine Wholesale",
-            "itemId": "SKU-1001",
-            "companyName": "DairyFresh Ltd",
-            "contactNumber": "+91-9840012345",
-            "alternateContactNumber": "+91-44-24509988",
-            "emailId": "orders@freshline.in",
-            "agreementDetails": {
-              "advanceAmountPaid": 25000,
-              "lastPaymentDate": "2026-04-10",
-              "nextPaymentDate": "2026-05-10",
-              "lastPaidAmount": 12500.5,
-              "expectedPaidAmount": 15000
+        "required": [
+          "supplierId",
+          "supplierName",
+          "itemsList",
+          "companyName",
+          "contactNumber",
+          "emailId",
+          "deliverySchedule",
+          "agreementDetails"
+        ],
+        "properties": {
+          "supplierId": {
+            "type": "string",
+            "description": "This is the unique Id that identifies the supplier. "
+          },
+          "supplierName": {
+            "type": "string",
+            "description": "This is the supplier name."
+          },
+          "itemsList": {
+            "type": "array",
+            "description": "This si the item Id list that this supplier supplies to the Grocery Store.It can be 1 product or many.",
+            "x-stoplight": {
+              "id": "0cxl9wamriu4b"
             },
-            "deliverySchedule": {
-              "lastRestockedDate": "2026-04-28",
-              "expectedRestockDate": "2026-05-05"
+            "items": {
+              "x-stoplight": {
+                "id": "j5lbm7ueqc22j"
+              },
+              "type": "object",
+              "required": [
+                "itemId"
+              ],
+              "properties": {
+                "itemId": {
+                  "type": "string",
+                  "x-stoplight": {
+                    "id": "aegk5qaywqiey"
+                  },
+                  "description": "THis is the item Id that supplier sells."
+                }
+              }
+            }
+          },
+          "companyName": {
+            "type": "string",
+            "description": "This si the supplier's registered company name."
+          },
+          "contactNumber": {
+            "type": "string",
+            "description": "This si the primary contact number of the supplier."
+          },
+          "alternateContactNumber": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "This is the laternate contact number and this is optional."
+          },
+          "emailId": {
+            "type": "string",
+            "description": "THis is the emailId to officially mail all the agreement and payment details."
+          },
+          "deliverySchedule": {
+            "type": "object",
+            "description": "This object holds delivery schedule data during which the seller regularly sends stock to the market",
+            "required": [
+              "lastRestockedDate",
+              "expectedRestockDate"
+            ],
+            "properties": {
+              "lastRestockedDate": {
+                "type": "string",
+                "description": "This is the last date when the delivery was made by the supplier.",
+                "format": "YYYY-MM-DD"
+              },
+              "expectedRestockDate": {
+                "type": "string",
+                "description": "THis is the next future date when the delivery is expected to happen.",
+                "format": "YYYY-MM-DD"
+              }
+            }
+          },
+          "agreementDetails": {
+            "type": "object",
+            "description": "This is the agreement details object containing the agreement details made with the supplier.",
+            "required": [
+              "advanceAmountPaid",
+              "lastPaymentDate",
+              "nextPaymentDate",
+              "lastPaidAmount",
+              "expectedPayAmount"
+            ],
+            "properties": {
+              "advanceAmountPaid": {
+                "type": "number",
+                "description": "THis is the advance amount paid during the initial agreement."
+              },
+              "lastPaymentDate": {
+                "type": "string",
+                "description": "This property holds the last payment date when the supplier was provided with the money for supplying items.",
+                "format": "YYYY-MM-DD"
+              },
+              "nextPaymentDate": {
+                "type": "string",
+                "description": "THis property keeps track of the next payment date.",
+                "format": "YYYY-MM-DD"
+              },
+              "lastPaidAmount": {
+                "type": "number",
+                "description": "THis is the last paid amount. Amount paid to seller during last payment date."
+              },
+              "expectedPayAmount": {
+                "type": "number",
+                "description": "THis is the due amount to be paid to seller.",
+                "x-stoplight": {
+                  "id": "agd2zbrhsqov8"
+                }
+              }
             }
           }
         }
       },
       "OrderResponse": {
         "type": "object",
-        "description": "This contains the order information. This object is used to track and update supply order status.",
-        "properties": {
-          "orderId": {
-            "type": "string",
-            "description": "This is the unique order id associated with an order placed to supplier."
-          },
-          "supplierId": {
-            "type": "string",
-            "description": "This is the supplier id associated with the order."
-          },
-          "additionalInfo": {
-            "type": "string",
-            "description": "THis is the additional info if any for a particular order."
-          },
-          "itemsList": {
-            "type": "array",
-            "description": "This is the itemList that contains all the items related to the orderId.",
-            "items": {
-              "type": "object",
-              "properties": {
-                "itemId": {
-                  "type": "string",
-                  "description": "THis is the unique itemId associated with every item."
-                },
-                "itemName": {
-                  "type": "string",
-                  "description": "THis is the item name corresponding to the item Id."
-                },
-                "itemCount": {
-                  "type": "integer"
-                },
-                "isStockReceived": {
-                  "type": "boolean",
-                  "description": "This indicates whether the stock is received against the order placed."
-                },
-                "stockReceivedDate": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
-                  "description": "This is the date when the stock placed reaches the grocery store."
-                }
+        "x-stoplight": {
+          "id": "7117b154abc36"
+        },
+        "x-examples": {
+          "Example 1": {
+            "orderId": "ORD-2026-05-001",
+            "additionalInfo": "Delivered to warehouse gate 2",
+            "itemsList": [
+              {
+                "itemId": "SKU-1001",
+                "itemName": "Organic Whole Milk",
+                "isStockReceived": true,
+                "stockReceivedDate": "2026-05-01"
               },
-              "required": [
-                "itemId",
-                "itemName",
-                "isStockReceived"
-              ]
-            }
+              {
+                "itemId": "SKU-1002",
+                "itemName": "Salted Butter 500g",
+                "isStockReceived": true,
+                "stockReceivedDate": "2026-05-01"
+              }
+            ]
           }
         },
-        "required": [
-          "orderId",
-          "supplierId",
-          "itemsList"
-        ],
+        "description": "This contains the order information. This object is used to track and update supply order status.",
         "examples": [
           {
             "orderId": "ORD-2026-05-001",
@@ -4181,131 +3844,70 @@
             ]
           }
         ],
-        "x-examples": {
-          "Example 1": {
-            "orderId": "ORD-2026-05-001",
-            "additionalInfo": "Delivered to warehouse gate 2",
-            "itemsList": [
-              {
-                "itemId": "SKU-1001",
-                "itemName": "Organic Whole Milk",
-                "isStockReceived": true,
-                "stockReceivedDate": "2026-05-01"
-              },
-              {
-                "itemId": "SKU-1002",
-                "itemName": "Salted Butter 500g",
-                "isStockReceived": true,
-                "stockReceivedDate": "2026-05-01"
+        "required": [
+          "orderId",
+          "supplierId",
+          "itemsList"
+        ],
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "description": "This is the unique order id associated with an order placed to supplier."
+          },
+          "supplierId": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "4ig4irjs0eu12"
+            },
+            "description": "This is the supplier id associated with the order."
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "THis is the additional info if any for a particular order."
+          },
+          "itemsList": {
+            "type": "array",
+            "description": "This is the itemList that contains all the items related to the orderId.",
+            "items": {
+              "type": "object",
+              "required": [
+                "itemId",
+                "itemName",
+                "isStockReceived"
+              ],
+              "properties": {
+                "itemId": {
+                  "type": "string",
+                  "description": "THis is the unique itemId associated with every item."
+                },
+                "itemName": {
+                  "type": "string",
+                  "description": "THis is the item name corresponding to the item Id."
+                },
+                "itemCount": {
+                  "type": "integer",
+                  "x-stoplight": {
+                    "id": "35kgctg335elf"
+                  }
+                },
+                "isStockReceived": {
+                  "type": "boolean",
+                  "description": "This indicates whether the stock is received against the order placed."
+                },
+                "stockReceivedDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "This is the date when the stock placed reaches the grocery store."
+                }
               }
-            ]
+            }
           }
         }
       },
       "SupplierPayment": {
         "type": "object",
-        "description": "This is the supplier payment object used to track supplier payment for each order.",
-        "properties": {
-          "paymentId": {
-            "type": "string",
-            "description": "This is the unique payment id of the supplier payment request"
-          },
-          "orderId": {
-            "type": "string",
-            "description": "This is the orderId for which supplier payment details are created."
-          },
-          "orderName": {
-            "type": "string",
-            "description": "This is the order name associated with order id."
-          },
-          "supplierId": {
-            "type": "string",
-            "description": "This is the supplier Id identifying the supplier to whom the payment has to be made."
-          },
-          "supplierCompanyName": {
-            "type": "string",
-            "description": "THis is the supplier company name"
-          },
-          "supplierName": {
-            "type": "string",
-            "description": "THis is the supplier name"
-          },
-          "supplierContact": {
-            "type": "string",
-            "description": "This is the supplier contact number."
-          },
-          "paymentSummary": {
-            "type": "object",
-            "description": "This is the payment sumary object under which payment details are provided.",
-            "properties": {
-              "totalAmountToBePaid": {
-                "type": "number",
-                "description": "This is the tomtal amount to be paid for the order id."
-              },
-              "advanceAmount": {
-                "type": "number",
-                "description": "This is the advance amount that grocery store gave to supplier during the initial agreement."
-              },
-              "isPaymentSuccess": {
-                "type": "boolean",
-                "description": "This is the indicator set to false when a payment entry is created for a supplier for an order id.",
-                "default": false
-              },
-              "paymentDate": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "description": "THis is the date when payment is done.",
-                "format": "date"
-              }
-            },
-            "required": [
-              "totalAmountToBePaid",
-              "advanceAmount"
-            ]
-          },
-          "stockDetails": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "itemId": {
-                  "type": "string"
-                },
-                "itemName": {
-                  "type": "string"
-                },
-                "itemCount": {
-                  "type": "integer"
-                },
-                "paymentAmount": {
-                  "type": "number"
-                },
-                "isStockSent": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "itemId",
-                "itemName",
-                "itemCount",
-                "paymentAmount",
-                "isStockSent"
-              ]
-            }
-          }
-        },
-        "required": [
-          "paymentId",
-          "orderId",
-          "orderName",
-          "supplierId",
-          "supplierName",
-          "supplierContact",
-          "paymentSummary",
-          "stockDetails"
-        ],
         "x-examples": {
           "Example 1": {
             "paymentId": "PAY-99810",
@@ -4338,9 +3940,140 @@
               }
             ]
           }
-        }
+        },
+        "required": [
+          "paymentId",
+          "orderId",
+          "orderName",
+          "supplierId",
+          "supplierName",
+          "supplierContact",
+          "paymentSummary",
+          "stockDetails"
+        ],
+        "properties": {
+          "paymentId": {
+            "type": "string",
+            "description": "This is the unique payment id of the supplier payment request"
+          },
+          "orderId": {
+            "type": "string",
+            "description": "This is the orderId for which supplier payment details are created."
+          },
+          "orderName": {
+            "type": "string",
+            "description": "This is the order name associated with order id."
+          },
+          "supplierId": {
+            "type": "string",
+            "description": "This is the supplier Id identifying the supplier to whom the payment has to be made."
+          },
+          "supplierCompanyName": {
+            "type": "string",
+            "description": "THis is the supplier company name"
+          },
+          "supplierName": {
+            "type": "string",
+            "description": "THis is the supplier name"
+          },
+          "supplierContact": {
+            "type": "string",
+            "description": "This is the supplier contact number."
+          },
+          "paymentSummary": {
+            "type": "object",
+            "required": [
+              "totalAmountToBePaid",
+              "advanceAmount"
+            ],
+            "description": "This is the payment sumary object under which payment details are provided.",
+            "properties": {
+              "totalAmountToBePaid": {
+                "type": "number",
+                "description": "This is the tomtal amount to be paid for the order id."
+              },
+              "advanceAmount": {
+                "type": "number",
+                "description": "This is the advance amount that grocery store gave to supplier during the initial agreement."
+              },
+              "isPaymentSuccess": {
+                "type": "boolean",
+                "description": "This is the indicator set to false when a payment entry is created for a supplier for an order id.",
+                "default": false
+              },
+              "paymentDate": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "THis is the date when payment is done.",
+                "format": "date"
+              }
+            }
+          },
+          "stockDetails": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "itemId",
+                "itemName",
+                "itemCount",
+                "paymentAmount",
+                "isStockSent"
+              ],
+              "properties": {
+                "itemId": {
+                  "type": "string",
+                  "x-stoplight": {
+                    "id": "eusf65o66nqq9"
+                  }
+                },
+                "itemName": {
+                  "type": "string"
+                },
+                "itemCount": {
+                  "type": "integer"
+                },
+                "paymentAmount": {
+                  "type": "number"
+                },
+                "isStockSent": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "description": "This is the supplier payment object used to track supplier payment for each order."
+      },
+      "ItemCategory": {
+        "title": "ItemCategory",
+        "x-stoplight": {
+          "id": "lgq5qra8un2a4"
+        },
+        "enum": [
+          "Cereals",
+          "Pulses",
+          "Vegetables",
+          "Fruits",
+          "Beverages",
+          "Snacks",
+          "NonFood",
+          "Imported",
+          "Readymadefood",
+          "Stationeries",
+          "DiaryProducts"
+        ]
       }
-    }
+    },
+    "securitySchemes": {
+      "user": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    },
+    "parameters": {}
   },
   "security": [
     {

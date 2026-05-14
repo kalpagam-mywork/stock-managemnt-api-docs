@@ -11,7 +11,8 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "gen": "npx docusaurus clean-api-docs stockchecker && npx docusaurus gen-api-docs stockchecker"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",
@@ -19,6 +20,8 @@
     "@docusaurus/preset-classic": "3.10.1",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
+    "docusaurus-plugin-openapi-docs": "^5.0.2",
+    "docusaurus-theme-openapi-docs": "^5.0.2",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

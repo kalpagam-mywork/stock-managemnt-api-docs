@@ -8,6 +8,8 @@ import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
 function HomepageHeader() {
+  // Modified for spec management API system file rendering changes on 14/05/2026
+  //change starts
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -19,13 +21,19 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            to="/docs">
+            Explore Stock Management API System Documentation
+          </Link>
+          <Link
+            className="button button--secondary button--lg"
+            to="/docs/api/stock-management-api-spec">
+            Explore API Spec Documentation
           </Link>
         </div>
       </div>
     </header>
   );
+  //change ends
 }
 
 export default function Home() {

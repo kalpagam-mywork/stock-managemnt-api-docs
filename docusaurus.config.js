@@ -10,8 +10,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Stock Management API Documentation',
+  tagline: 'A robust inventory orchestration engine for modern supermarket ecosystems',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -47,6 +47,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
+          docItemComponent: "@theme/ApiItem", //changes done to render API Spec 13/05/2026
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
@@ -74,6 +75,28 @@ const config = {
     ],
   ],
 
+  //changes done to render API Spec 13/05/2026  starts
+  plugins: [
+  [
+    'docusaurus-plugin-openapi-docs',
+    {
+      id: "api",
+      docsPluginId: "classic",
+      config: {
+        stockchecker: {
+          specPath: "static/files/stockchecker.json", // Path to your spec
+          outputDir: "docs/api", // Where the generated docs will live
+          sidebarOptions: {
+            groupPathsBy: "tag",
+          },
+        }
+      }
+    },
+  ],
+],
+themes: ["docusaurus-theme-openapi-docs"], 
+//changes done to render API Spec 13/05/2026  ends
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -83,25 +106,27 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'My Site',
+        // chnaged title for spec management API system file rendering changes on 14/05/2026
+        title: 'Stock Management System',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
         },
-        items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
+        // commented for spec management API system file rendering changes on 14/05/2026
+        // items: [
+        //   {
+        //     type: 'docSidebar',
+        //     sidebarId: 'tutorialSidebar',
+        //     position: 'left',
+        //     label: 'Tutorial',
+        //   },
+        //   {to: '/blog', label: 'Blog', position: 'left'},
+        //   {
+        //     href: 'https://github.com/facebook/docusaurus',
+        //     label: 'GitHub',
+        //     position: 'right',
+        //   },
+        // ],
       },
       footer: {
         style: 'dark',
@@ -154,5 +179,6 @@ const config = {
       },
     }),
 };
+
 
 export default config;

@@ -1,33 +1,30 @@
 openapi: 3.1.0
 info:
   version: '1.0'
-  title: stockchecker
-  summary: The APIs help in performing stock management in super market.
-  description: The APIs help in checking the current grocery stock of all the super market and help to manage the stock availability and supply management
-  termsOfService: 'https://stockcheckerapp.com/terms'
+  title: Stock Management API Spec
+  summary: 'A high-performance inventory orchestration engine that digitizes the supermarket supply chain through real-time stock tracking, procurement automation, and financial reconciliation.'
+  description: The Stock Management API suite is a robust back-end solution designed for modern supermarkets and grocery retailers. It streamlines daily operations by digitizing the lifecycle of inventory—from supplier onboarding and procurement to order fulfillment and financial reconciliation.
   contact:
     name: support
-    url: 'https://stockcheckerapp.com'
-    email: sample@gmail.com
+    url: 'https://github.com/kalpagam-mywork'
+    email: kalpagamaravinth@gmail.com
   license:
-    url: 'https://creativecommons.org/licenses/by-sa/4.0/'
-    name: Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    name: Apache 2.0
 servers:
-  - url: 'http://localhost:8085/stockChecker'
+  - url: 'https://{mockserver}/stockChecker'
     description: dev
-  - url: 'https://int.freeapp.store/stockChecker'
-    description: int
-  - url: 'https://qa.freeapp.store/stockChecker'
-    description: qa
-  - url: 'https://prod.freeapp.store/stockChecker'
-    description: prod
+    variables:
+      mockserver:
+        description: The hostname of your mock environment.
+        default: stockchecker.mockserver.com      
 paths:
   '/companies/{companyId}/grocery-list':
     get:
       tags:
         - Grocery Details
       summary: get-companyId-grocery-list
-      description: ' This service returns all the grocery items of super market/company.'
+      description: ' Retrieves a comprehensive catalog of grocery inventory associated with a specific company or supermarket branch.'
       operationId: getGroceryListByCompany
       parameters:
         - name: recordLimit
@@ -257,19 +254,17 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
     post:
       tags:
         - Grocery Details
       summary: post-companyId-grocery-list
-      description: This service adds or updates the grocery details of a company.
+      description: This service adds or updates the grocery inventory details of a company.
       operationId: post-companies-companyId-grocery-list
       parameters:
         - name: companyId
@@ -441,20 +436,18 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
   '/companies/{companyId}/grocery-list/{itemId}':
     get:
       tags:
         - Grocery Details
       summary: get-companyId-grocery-list-itemId
-      description: get the item details from a company's grocery list.
+      description: Retrieves the Grocery Item metadata associated with a specific company or supermarket branch based on unique Item identifier Item ID.
       operationId: get-companies-companyId-grocery-list-itemId
       parameters:
         - name: companyId
@@ -601,20 +594,18 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
   '/companies/{companyId}/supplier-list':
     get:
       tags:
         - Supplier
       summary: get-companyId-supplier-list
-      description: This service lists all the suppliers associated with the company.
+      description: This service lists all the suppliers along with the supplier metadata info associated with a specific company or supermarket branch.
       operationId: get-companies-companyId-supplier-list
       parameters:
         - name: companyId
@@ -802,19 +793,17 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
     post:
       tags:
         - Supplier
       summary: post-companyId-supplier-list
-      description: This service adds new supplier to the supplier list
+      description: This service adds new supplier to the supplier list associated with a specific company or supermarket branch
       operationId: post-companies-companyId-supplier-list
       parameters:
         - name: companyId
@@ -893,17 +882,9 @@ paths:
                 required:
                   - status
                   - message
-                  - data
-                x-examples:
-                  Example 1:
-                    status: success
-                    message: New supplier added to supplier list successfully
-                    data:
-                      supplierId: SUP-7022
-                      itemId: SKU-1001
-                      createdAt: '2026-05-02T14:30:00Z'
+                  - data                
               examples:
-                Example 1:
+                sucessResponse:
                   value:
                     status: success
                     message: New supplier added to supplier list successfully
@@ -921,7 +902,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               examples:
-                Example 1:
+                Example ValidationError:
                   value:
                     status: error
                     errorCode: 400
@@ -937,7 +918,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               examples:
-                Example 1:
+                Example Unauthorized:
                   value:
                     status: error
                     errorCode: 401
@@ -953,7 +934,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               examples:
-                Example 1:
+                Example Notfound:
                   value:
                     status: error
                     errorCode: 404
@@ -969,7 +950,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
               examples:
-                Example 1:
+                Example InternalError:
                   value:
                     status: error
                     errorType: SERVER_ERROR
@@ -981,20 +962,18 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
   '/companies/{companyId}/supplier-list/{supplierId}':
     get:
       tags:
         - Supplier
       summary: get-companyId-supplier-list-supplierId
-      description: This service returns the supplier data associated with a particular supplierid.
+      description: This service retrieves the supplier metadata associated with a particular supplierid.
       operationId: get-companies-companyId-supplier-list-supplierId
       parameters:
         - name: companyId
@@ -1083,20 +1062,18 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
   '/companies/{companyId}/supplierlist-item/{itemId}':
     get:
       tags:
         - Supplier
       summary: get-companyId-supplier-list-itemId
-      description: This retrieves the associated suppliers of a particular item.
+      description: This service retrieves the associated suppliers of a particular item.
       operationId: get-companies-companyId-supplier-list-itemId
       parameters:
         - name: companyId
@@ -1280,20 +1257,18 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com           
   '/companies/{companyId}/newSupplyOrder-list':
     post:
       tags:
         - Order
       summary: post-companyId-newSupplyOrder-list
-      description: This service helps place new order of items to a particular supplier.
+      description: This service helps place new order of items to a particular supplier associated with a specific company or supermarket branch.
       operationId: post-companies-companyId-newSupplyOrder-list
       parameters:
         - name: companyId
@@ -1492,20 +1467,18 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
   '/companies/{companyId}/newSupplyOrderStatus':
     get:
       tags:
         - Order
       summary: get-companyId-newSupplyOrderStatus
-      description: This service tracks the order placed to the supplier and its status. The service defaults to last 7 days from the current date and also accepts from and to date as optional parameters.
+      description: This service tracks the order placed to the supplier and its status. The order details fetched defaults to last 7 days from the current date. The service also provides customizable date options as optional parameters.
       operationId: get-companies-companyId-newSupplyOrderStatus
       parameters:
         - name: fromDate
@@ -1692,19 +1665,17 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
     patch:
       tags:
         - Order
       summary: patch-companyId-newSupplyOrderStatus
-      description: This is used to update the stock received status and received date for the items placed in an order.
+      description: This  service is used to update the stock received status and received date properties for the items placed in an order.This helps in efficient order fulfillment tracking.
       operationId: patch-companies-companyId-newSupplyOrderStatus
       parameters:
         - name: companyId
@@ -1928,14 +1899,12 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com           
   '/companies/{companyId}/supplierPaymentDetails':
     get:
       tags:
@@ -2104,19 +2073,17 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
     post:
       tags:
         - Payment
       summary: post-companyId-supplierPaymentDetails
-      description: 'This is the payment entry created for an order id for a supplier. '
+      description: 'This is the payment entry containing the details of amount to be paid for individual items and total amount to pay ; This is created for an order id for a supplier. '
       operationId: post-companies-companyId-supplierPaymentDetails
       parameters:
         - name: companyId
@@ -2267,19 +2234,17 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
     patch:
       tags:
         - Payment
       summary: patch-companyId-supplierPaymentDetails
-      description: This service updates the payment entry for an order once payment is done.Key fields payment date and isPayment success are updated through this.
+      description: This service updates the payment entry for an order once payment is done offline.Key fields that gets updated are payment date and Payment success indicator. This helps in Payment fulfillment tracking and in financial audits.
       operationId: patch-companies-companyId-supplierPaymentDetails
       parameters:
         - name: companyId
@@ -2431,14 +2396,12 @@ paths:
       security:
         - user: []
       servers:
-        - url: 'http://localhost:8085/stockChecker'
+        - url: 'https://{mockserver}/stockChecker'
           description: dev
-        - url: 'https://int.freeapp.store/stockChecker'
-          description: int
-        - url: 'https://qa.freeapp.store/stockChecker'
-          description: qa
-        - url: 'https://prod.freeapp.store/stockChecker'
-          description: prod
+          variables:
+            mockserver:
+              description: The hostname of your mock environment.
+              default: stockchecker.mockserver.com            
 components:
   securitySchemes:
     user:
