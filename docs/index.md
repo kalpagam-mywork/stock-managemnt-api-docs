@@ -99,8 +99,7 @@ curl --request GET \
 * **API Design Spec:** [API_Spec]
 * **Postman API Collection:** [Postman]
 
-[API_Spec]: https://raw.githubusercontent.com/kalpagam-mywork/stock-managemnt-api-docs/refs/heads/main/static/files/stockchecker.yaml
-
+[API_Spec]: https://stock-management-docs.netlify.app/docs/api/stock-management-api-spec
 [Postman]: https://raw.githubusercontent.com/kalpagam-mywork/stock-managemnt-api-docs/refs/heads/main/static/files/StockCheckerAPICollection.postman_collection_V2.0.json
 
 ## Technology Stack
