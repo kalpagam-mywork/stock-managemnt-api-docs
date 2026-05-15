@@ -1,41 +1,33 @@
-# Website
+# 🛒 Stock Management: A Docs-as-Code API Portfolio
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+## 🌟 The Vision
+This project is a deep dive into the **Docs-as-Code** workflow. To achieve this, I specifically picked the 'Digital Stock Management' use case, designing a professional suite of APIs from scratch using the OpenAPI 3.1.0 standard to solve this real-world retail challenge.
 
-## Installation
+I chose the supermarket industry because it offers a universally relatable use case. These APIs are designed to digitize the inventory lifecycle—from stock intake to real-time shelf availability—streamlining operations for modern grocery retailers.
 
-```bash
-yarn
-```
+---
 
-## Local Development
+## 🛠️ What’s Under the Hood?
+This repository serves as a complete technical showcase, featuring:
 
-```bash
-yarn start
-```
+*   **API Architecture:** A robust specification designed in **Stoplight**, adhering to the latest OpenAPI standards.
+*   **Interactive Documentation:** A custom-built documentation site powered by **Docusaurus**. I customized React components and sidebars to ensure a clean, "developer-first" experience.
+*   **Testing & Simulation:** A full **Postman Collection** paired with a **Mock Server** implementation to provide realistic response samples.
+*   **Tooling:** Managed entirely via **VS Code** and version-controlled on **GitHub** to simulate a professional engineering environment.
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+---
 
-## Build
+## 🎓 Learning Objectives
+This project was built to strengthen my expertise in modern API documentation and doc-as-code practices. It demonstrates my ability to:
+1. **API Design & Documentation:** Translate complex backend workflows into clear, structured, and developer-friendly API documentation.
+2. **Automated Documentation Pipelines:** Implement CI/CD workflows to keep documentation synchronized with API and codebase changes.
+3. **User-Centric API Specifications:** Design scalable and intuitive OpenAPI specifications that support seamless real-world integration and developer adoption.
 
-```bash
-yarn build
-```
+---
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+## 📖 Explore the Documentation
+For a clear understanding of the endpoints and system logic, please visit the live site:
 
-## Deployment
+👉 [**Stock Management API System Documentation**](https://raw.githubusercontent.com/kalpagam-mywork/stock-managemnt-api-docs/refs/heads/main/docs/index.md)
 
-Using SSH:
-
-```bash
-USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+**Questions or Collaboration?** I’m always happy to talk API design and technical writing. Thanks for visiting, and Happy Learning!
