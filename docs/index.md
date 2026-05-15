@@ -93,7 +93,7 @@ curl --request GET \
   --header 'Authorization: Basic YOUR_AUTH_TOKEN'
 ```
 
-**Full Endpoint Reference:** Detailed request/response schemas, JSON structures, and error codes are available in the **[Postman]**().
+**Full Endpoint Reference:** Detailed request/response schemas, JSON structures, and error codes are available in the **[Postman]**.
 
 ## Additional Documentation
 * **API Design Spec:** [API_Spec]
