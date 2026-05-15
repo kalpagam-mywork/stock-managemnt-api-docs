@@ -15,7 +15,8 @@ This repository serves as a complete technical showcase, featuring:
 *   **API Architecture:** A robust specification designed in **Stoplight**, adhering to the latest OpenAPI standards.
 *   **Interactive Documentation:** A custom-built documentation site powered by **Docusaurus**. I customized React components and sidebars to ensure a clean, "developer-first" experience.
 *   **Testing & Simulation:** A full **Postman Collection** paired with a **Mock Server** implementation to provide realistic response samples.
-*   **Tooling:** Managed entirely via **VS Code** and version-controlled on **GitHub** to simulate a professional engineering environment.
+* **Tooling & Deployment:** Managed entirely via **VS Code** and version-controlled on **GitHub** to simulate a professional engineering environment.
+    * **CI/CD with Netlify:** Integrated an automated deployment pipeline that triggers a fresh build on every "push," ensuring the live documentation site is always synchronized with the latest API specification.
 
 ---
 
