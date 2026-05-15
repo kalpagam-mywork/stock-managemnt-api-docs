@@ -28,6 +28,6 @@ This project was built to strengthen my expertise in modern API documentation an
 ## 📖 Explore the Documentation
 For a clear understanding of the endpoints and system logic, please visit the live site:
 
-👉 [**Stock Management API System Documentation**](https://raw.githubusercontent.com/kalpagam-mywork/stock-managemnt-api-docs/refs/heads/main/docs/index.md)
+👉 [**Stock Management API System Documentation**](https://stock-management-docs.netlify.app/)
 
 **Questions or Collaboration?** I’m always happy to talk API design and technical writing. Thanks for visiting, and Happy Learning!
