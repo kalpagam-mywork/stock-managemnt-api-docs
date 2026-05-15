@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c75e5cd6-498f-411f-920c-e278c10c1346/deploy-status)](https://app.netlify.com/projects/stock-management-docs/deploys)
+
 # 🛒 Stock Management: A Docs-as-Code API Portfolio
 
 ## 🌟 The Vision
