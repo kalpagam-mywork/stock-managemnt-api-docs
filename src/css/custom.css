@@ -28,3 +28,19 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Target any button inside the main documentation area that contains the request text */
+main button {
+    display: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
