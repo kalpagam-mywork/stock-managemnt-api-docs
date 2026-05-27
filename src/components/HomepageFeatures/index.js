@@ -1,49 +1,64 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'API Reference',
+    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default, 
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Explore complete OpenAPI specs, endpoint contracts, request/response structures, 
+        and validation rules for the core stock engine.
       </>
     ),
+    linkUrl: '/docs/api/stock-management-api-spec', 
+    buttonText: 'View Spec →',
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Architecture Guides',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        A comprehensive technical guide detailing the core architecture, system capabilities, 
+        and service layers of the stock management engine, including integration setups and system dependencies.
       </>
     ),
+    linkUrl: '/docs', 
+    buttonText: 'Read Docs →',
   },
   {
-    title: 'Powered by React',
+    title: 'Intelligent Workflows',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        An end-to-end architectural overview demonstrating how a conversational interface 
+    coordinates with multi-node workflows and memory systems to generate intelligent, 
+    real-time stock inventory insights.
       </>
     ),
+    linkUrl: '/docs/ai/stock-management-ai-agent-guide', 
+    buttonText: 'View AI Guide →',
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({Svg, title, description,linkUrl, buttonText}) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>
       <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
+        <h3 className="margin-top--md">{title}</h3>
         <p>{description}</p>
+        <div style={{ marginTop: '1.25rem', marginBottom: '1rem' }}>
+          <Link
+            className="button button--secondary button--sm"
+            to={linkUrl}>
+            {buttonText}
+          </Link>
+        </div>
       </div>
     </div>
   );
